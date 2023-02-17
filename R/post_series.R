@@ -5,7 +5,8 @@
 #'
 #' @param indicator_code Indicador de 9 dígitos;
 #' @param transfs_code Contém a região, agregação, transformação primária e secundária;
-#' @param units A unidade de medida de cada série input;
+#' @param units_pt A unidade de medida de cada série input em Português;
+#' @param units_en A unidade de medida de cada série input em Inglês;
 #' @param token Token de acesso do usuário.
 #'
 #' @author Luiz Paulo Tavares Gonçalves
@@ -17,7 +18,8 @@
 #' send_transf = fsApi::post.series(indicator_code = "BRBOP0001",
 #'                                  transfs_code = c("AL2OOML",
 #'                                                   "GO2OOML"),
-#'                                  units = c("índice", "índice"),
+#'                                  units_en = c("teste", "teste"),
+#'                                  units_pt = c("teste", "teste")
 #'                                  token = headers)
 #' }
 #'
