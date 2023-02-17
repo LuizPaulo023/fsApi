@@ -26,42 +26,50 @@
 
 post.series <- function(indicator_code = as.character(),
                         transfs_code = as.character(),
-                        units = as.character(),
+                        units_en = as.character(),
+                        units_pt = as.character(),
                         token = as.character()){
 
+# Guardando inputs
 
   input <- tibble::tibble(transfs = transfs_code,
-                          unid = units) %>%
+                          units_en = units_en,
+                          units_pt = units_pt) %>%
            dplyr::mutate(indicator = indicator_code)
+
 
   if(!is.null(input)){
 
     body = '{
-            "region": "step_um",
-            "aggregation": "step_dois",
+            "aggregation": "step_um",
+            "region": "step_dois",
             "primary_transformation": "step_tres",
             "second_transformation": "step_quatro",
-            "units": "step_cinco"
+            "unit": {
+                     "pt-br": "step_cinco",
+                     "en-us": "step_seis"
+  }
 }';
 
 send_fs = input %>%
           dplyr::mutate(region = base::substr(transfs, 1, 3),
                         aggregation = substr(transfs, 5, 6),
                         primary_transformation = substr(transfs, 4,4),
-                        second_transformation = substr(transfs, 7, 7),
-                        units = unid) %>%
+                        second_transformation = substr(transfs, 7, 7)) %>%
           dplyr::rowwise() %>%
           dplyr::mutate(body = body,
-                 body_json = stringr::str_replace_all(body, c("step_um" = region,
-                                                              "step_dois" = aggregation,
+                 body_json = stringr::str_replace_all(body, c("step_um" = aggregation,
+                                                              "step_dois" = region,
                                                               "step_tres" = primary_transformation,
                                                               "step_quatro" = second_transformation,
-                                                              "step_cinco" = units)),
+                                                              "step_cinco" = units_en,
+                                                              "step_seis" = units_pt)),
                 url = paste0("https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/", indicator, "/series")) %>%
          dplyr::select(indicator,
                  transfs,
                  body_json,
-                 units,
+                 units_en,
+                 units_pt,
                  url)
   }else{
     print("ERRO: vetor e/ou lista de parâmetros vazios")
