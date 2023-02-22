@@ -40,7 +40,7 @@ get.tree <- function(master_node = as.character(),
 
   }else{
 
-number_node = tree |>
+number_node = tree %>%
        purrr::map_df(function(index) {
        dplyr::tibble(node = index$node)
        }
