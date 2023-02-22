@@ -7,7 +7,8 @@
 post.series(
   indicator_code = as.character(),
   transfs_code = as.character(),
-  units = as.character(),
+  units_en = as.character(),
+  units_pt = as.character(),
   token = as.character()
 )
 }
@@ -16,7 +17,9 @@ post.series(
 
 \item{transfs_code}{Contém a região, agregação, transformação primária e secundária;}
 
-\item{units}{A unidade de medida de cada série input;}
+\item{units_en}{A unidade de medida de cada série input em Inglês;}
+
+\item{units_pt}{A unidade de medida de cada série input em Português;}
 
 \item{token}{Token de acesso do usuário.}
 }
@@ -31,7 +34,8 @@ A função busca enviar as aberturas/transformações solicitadas pelo usuário 
 send_transf = fsApi::post.series(indicator_code = "BRBOP0001",
                                  transfs_code = c("AL2OOML",
                                                   "GO2OOML"),
-                                 units = c("índice", "índice"),
+                                 units_en = c("teste", "teste"),
+                                 units_pt = c("teste", "teste")
                                  token = headers)
 }
 

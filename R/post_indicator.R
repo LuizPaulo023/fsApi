@@ -220,8 +220,8 @@ post.indicator = function(name_en = as.character(),
   for (i in 1:length(send_fs$body_json)) {
 
        sends_indicators = httr::VERB("POST",
-                                     url = send_fs$url[1],
-                                     body = send_fs$body_json[1],
+                                     url = send_fs$url[i],
+                                     body = send_fs$body_json[i],
                                      httr::add_headers(token_homo))
 
       cat(httr::content(sends_indicators, 'text'))
