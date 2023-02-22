@@ -16,28 +16,34 @@
 #' @examples
 #' \dontrun{
 #' send_transf = fsApi::post.series(indicator_code = "BRBOP0001",
-#'                                  transfs_code = c("AL2OOML",
-#'                                                   "GO2OOML"),
-#'                                  units_en = c("teste", "teste"),
-#'                                  units_pt = c("teste", "teste")
+#'                                  region_code = c('AL2', 'GO2'),
+#'                                  transfs_code = c("OOML", "OOMM"),
+#'                                  units_en = c("teste1", "teste2"),
+#'                                  units_pt = c("testea", "testeb")
 #'                                  token = headers)
 #' }
 #'
 #' @export
 
 
-post.series <- function(indicator_code = as.character(),
-                        transfs_code = as.character(),
-                        units_en = as.character(),
-                        units_pt = as.character(),
-                        token = as.character()){
+post.series <- function(indicator_code, 
+                        region_code,
+                        transfs_code,
+                        units_en,
+                        units_pt,
+                        token){
 
 # Guardando inputs
 
-  input <- tibble::tibble(transfs = transfs_code,
-                          units_en = units_en,
-                          units_pt = units_pt) %>%
-           dplyr::mutate(indicator = indicator_code)
+  input <- tidyr::expand_grid(indicador = indicator_code,
+                              region = region_code,
+                              final = paste0(transfs_code, "_", units_en,"_",units_pt)) %>% 
+    rowwise() %>% 
+    mutate(transf = str_sub(final, 1,4),
+           unit_en = strsplit(final, "_")[[1]][[2]],
+           unit_pt = strsplit(final, '_')[[1]][[3]]) %>% 
+    ungroup() %>% 
+    select(-final)
 
 
   if(!is.null(input)){
@@ -54,45 +60,42 @@ post.series <- function(indicator_code = as.character(),
 }';
 
 send_fs = input %>%
-          dplyr::mutate(region = base::substr(transfs, 1, 3),
-                        aggregation = substr(transfs, 5, 6),
-                        primary_transformation = substr(transfs, 4,4),
-                        second_transformation = substr(transfs, 7, 7)) %>%
+          dplyr::mutate(aggregation = substr(transf, 2, 3),
+                        primary_transformation = substr(transf, 1,1),
+                        second_transformation = substr(transf, 4,4)) %>%
           dplyr::rowwise() %>%
           dplyr::mutate(body = body,
                  body_json = stringr::str_replace_all(body, c("step_um" = aggregation,
                                                               "step_dois" = region,
                                                               "step_tres" = primary_transformation,
                                                               "step_quatro" = second_transformation,
-                                                              "step_cinco" = units_en,
-                                                              "step_seis" = units_pt)),
-                url = paste0("https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/", indicator, "/series")) %>%
-         dplyr::select(indicator,
-                 transfs,
-                 body_json,
-                 units_en,
-                 units_pt,
-                 url)
+                                                              "step_cinco" = unit_en,
+                                                              "step_seis" = unit_pt)),
+                url = paste0("https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/", indicador, "/series")) %>%
+         dplyr::select(indicador,
+                       region,
+                       transf,
+                       body_json,
+                       unit_en,
+                       unit_pt,
+                       url)
   }else{
     print("ERRO: vetor e/ou lista de parâmetros vazios")
 }
 
 # Subindo para FS desenvolvimento ------------------------------------------------------------------------------------------------------------
 
-for (i in 1:length(send_fs$indicator)) {
+for (i in 1:length(send_fs$indicador)) {
      update_sids = httr::VERB("POST",
                               url = send_fs$url[i],
                               body = send_fs$body_json[i],
                               httr::add_headers(token))
 
-    print(send_fs$indicator[i])
+    print(send_fs$indicador[i])
     cat(httr::content(update_sids, 'text'))
-    print(send_fs$transfs[i])
+    print(send_fs$transf[i])
 
   }
-
-  return(send_fs)
-
 }
 
 
