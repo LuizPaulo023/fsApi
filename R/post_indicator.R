@@ -166,7 +166,6 @@ post.indicator = function(name_en = as.character(),
                             id = c(id_nodes$id,
                                    rep("", 5-length(id_nodes$id))))
 
-
   send_fs = input %>%
     dplyr::rowwise() %>%
     dplyr::mutate(body = body,
@@ -231,7 +230,6 @@ post.indicator = function(name_en = as.character(),
   return(send_fs)
 
 }
-
 
 
 
