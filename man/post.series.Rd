@@ -5,11 +5,12 @@
 \title{Enviar aberturas/transformações para a FS}
 \usage{
 post.series(
-  indicator_code = as.character(),
-  transfs_code = as.character(),
-  units_en = as.character(),
-  units_pt = as.character(),
-  token = as.character()
+  indicator_code,
+  region_code,
+  transfs_code,
+  units_en,
+  units_pt,
+  token
 )
 }
 \arguments{
@@ -32,10 +33,10 @@ A função busca enviar as aberturas/transformações solicitadas pelo usuário 
 \examples{
 \dontrun{
 send_transf = fsApi::post.series(indicator_code = "BRBOP0001",
-                                 transfs_code = c("AL2OOML",
-                                                  "GO2OOML"),
-                                 units_en = c("teste", "teste"),
-                                 units_pt = c("teste", "teste")
+                                 region_code = c('AL2', 'GO2'),
+                                 transfs_code = c("OOML", "OOMM"),
+                                 units_en = c("teste1", "teste2"),
+                                 units_pt = c("testea", "testeb")
                                  token = headers)
 }
 
