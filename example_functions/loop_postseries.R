@@ -13,14 +13,14 @@ library(httr)
 # Definindo o Token do usuário - homologação ----------------------------------------------------------
 
 token_homo = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY3NzA5MDAwNSwiZXhwIjoxNjc3MTc2NDA1LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.m38Y-eV3FAUPegXAtNNWrS8B0RDLzqVa2U6CspwgW4A8eNZS2_Cu7h45dMK4lLj023mjojIILjPRV2kC2468yi-FrmrCcT94CopaRwRhbhLe8bg-3TQmxy57Bpg-Xgy0mexDoReReYMQq1A_GcW2jJEhsdxNZ6Y4dqc64xBXJroC65psXkKadc9De4Y6cCTkR6W_1ebXX-XccvZsCRun1F-YTNZY9dd_ynXlITS9C7uvuChBw60pzPYLoQBuJnHcUe3LrEeczZ_0404rbe3xB6sQ5C4I9ebUzg6UiZGxPp5VpLBKDlLhJ9ymuWdce5sTP0J9bUqIzeJhAsfFbaihTw',
+  'Authorization' = 'Bearer INSIRA O TOKEN DE ACESSO',
   'Content-Type' = 'application/json'
 )
 
 # Definindo o Token do usuário - produção --------------------------------------------------------------------------
 
 token_prod = c(
-  'Authorization' = 'Bearer INSIRA O TOKEN AQUI',
+  'Authorization' = 'Bearer INSIRA O TOKEN DE ACESSO',
   'Content-Type' = 'application/json'
 )
 
