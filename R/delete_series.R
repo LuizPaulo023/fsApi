@@ -38,7 +38,6 @@ delete_series <- function(indicator = as.character(),
 series_fs <- df_fill %>%
              dplyr::filter(indicator_code == indicator)
 
-
 for (i in 1:nrow(series_fs)) {
 
   delete_series <- httr::VERB("DELETE",
