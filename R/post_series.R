@@ -25,28 +25,61 @@
 #'
 #' @export
 
-
-post.series <- function(indicator_code, 
-                        region_code,
-                        transfs_code,
-                        units_en,
-                        units_pt,
-                        token){
-
-# Guardando inputs
-
-  input <- tidyr::expand_grid(indicador = indicator_code,
-                              region = region_code,
-                              final = paste0(transfs_code, "_", units_en,"_",units_pt)) %>% 
-    rowwise() %>% 
-    mutate(transf = str_sub(final, 1,4),
-           unit_en = strsplit(final, "_")[[1]][[2]],
-           unit_pt = strsplit(final, '_')[[1]][[3]]) %>% 
+gen_sids_by_group <- function(indicators_metadado,
+                              depara_grupos, 
+                              depara_unidade) {
+  
+  indicators_full <- indicators_metadado %>% 
+    left_join(depara_grupos)
+  
+  region_code <- indicators_metadado$regioes %>% 
+    unique()
+  
+  indicator_code = indicators_metadado$codigo %>% 
+    unique()
+  
+  if(region_code != '000') {
+    region_code = str_replace_all(region_code, ' ', '')
+    region_code = str_split(region_code, ',')[[1]]
+  }
+  
+  all_sids <- tidyr::expand_grid(codigo = indicator_code,
+                                 region = region_code) %>% 
+    left_join(indicators_metadado %>% 
+                select(-c(subgrupo, regioes))) %>% 
+    left_join(depara_grupos) %>% 
+    mutate(cod1_cod2 = paste0(str_sub(transfs, 1,1),
+                              str_sub(transfs, 4,4))) %>% 
+    left_join(depara_unidade %>% 
+                select(cod1_cod2, un_pt, un_en)) %>% 
+    rowwise() %>%
+    mutate(un_pt = ifelse(is.na(un_pt),
+                          ifelse(str_sub(cod1_cod2,1,1) %in% c('O', 'S'), original_pt, real_pt),
+                          un_pt),
+           un_en = ifelse(is.na(un_en),
+                          ifelse(str_sub(cod1_cod2,1,1) %in% c('O', 'S'), original_en, real_en),
+                          un_en),
+           sid = paste0(codigo, region, transfs)) %>% 
     ungroup() %>% 
-    select(-final)
+    select(c(sid, un_pt, un_en))
+    
+  if(any(is.na(all_sids$un_pt)) | any(is.na(all_sids$un_en))) {
+      na_un <- all_sids %>%
+        filter(is.na(un_pt) | is.na(un_en)) %>%
+        distinct(sid) %>%
+        pluck('sid')
+      
+      all_sids <- all_sids %>% 
+        mutate(un_pt = 'teste', 
+               un_en = 'test') 
+      
+      warning(paste0('Os seguintes indicadores não possuem unidade de medida preenchida: ', paste(na_un, collapse = ', ')))
+    }
+  
+  return(all_sids)
+}
 
-
-  if(!is.null(input)){
+post_series <- function(indicators_metadado, token){
 
     body = '{
             "aggregation": "step_um",
@@ -54,48 +87,38 @@ post.series <- function(indicator_code,
             "primary_transformation": "step_tres",
             "second_transformation": "step_quatro",
             "unit": {
-                     "pt-br": "step_cinco",
-                     "en-us": "step_seis"
-  }
-}';
+              "pt-br": "step_cinco",
+              "en-us": "step_seis"}
+            }';
 
-send_fs = input %>%
-          dplyr::mutate(aggregation = substr(transf, 2, 3),
-                        primary_transformation = substr(transf, 1,1),
-                        second_transformation = substr(transf, 4,4)) %>%
-          dplyr::rowwise() %>%
-          dplyr::mutate(body = body,
-                 body_json = stringr::str_replace_all(body, c("step_um" = aggregation,
-                                                              "step_dois" = region,
-                                                              "step_tres" = primary_transformation,
-                                                              "step_quatro" = second_transformation,
-                                                              "step_cinco" = unit_en,
-                                                              "step_seis" = unit_pt)),
-                url = paste0("https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/", indicador, "/series")) %>%
-         dplyr::select(indicador,
-                       region,
-                       transf,
-                       body_json,
-                       unit_en,
-                       unit_pt,
-                       url)
-  }else{
-    print("ERRO: vetor e/ou lista de parâmetros vazios")
-}
+    send_fs = indicators_metadado %>%
+      dplyr::mutate(indicador = substr(sid, 1,9),
+                    region = substr(sid, 10,12),
+                    aggregation = substr(sid, 14, 15),
+                    transf_1 = substr(sid, 13,13),
+                    transf_2 = substr(sid, 16,16)) %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(body = body,
+             body_json = stringr::str_replace_all(body, c("step_um" = aggregation,
+                                                          "step_dois" = region,
+                                                          "step_tres" = transf_1,
+                                                          "step_quatro" = transf_2,
+                                                          "step_cinco" = un_en,
+                                                          "step_seis" = un_pt)),
+            url = paste0("https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/", indicador, "/series")) 
 
-# Subindo para FS desenvolvimento ------------------------------------------------------------------------------------------------------------
-
-for (i in 1:length(send_fs$indicador)) {
-     update_sids = httr::VERB("POST",
-                              url = send_fs$url[i],
-                              body = send_fs$body_json[i],
-                              httr::add_headers(token))
-
-    print(send_fs$indicador[i])
-    cat(httr::content(update_sids, 'text'))
-    print(send_fs$transf[i])
-
+    for (series in unique(send_fs$sid)) {
+      sending_sid <- send_fs %>% 
+        filter(sid == series)
+      
+       update_sids = httr::VERB("POST",
+                                url = sending_sid$url,
+                                body = sending_sid$body_json,
+                                httr::add_headers(token))
+       
+      print(series)
+      cat(httr::content(update_sids, 'text'))
+    }
   }
 }
-
 
