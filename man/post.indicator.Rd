@@ -80,8 +80,8 @@ send_indicadores = post.indicator(name_en = "ARG - Exports of Goods",
                                  country = "AR",
                                  sector = "BOP",
                                  acess_group = "Geral",
-                                 node_en = "Brazil",
-                                 node_pt = "Brasil")
+                                 node_en = "Argetina",
+                                 node_pt = "Argentina")
 }
 
 }

@@ -44,9 +44,8 @@
 #'                                  country = "AR",
 #'                                  sector = "BOP",
 #'                                  acess_group = "Geral",
-#'                                  node_en = "Brazil",
-#'                                  node_pt = "Brasil")
-
+#'                                  node_en = "Argetina",
+#'                                  node_pt = "Argentina")
 #' }
 #'
 #' @export
@@ -69,7 +68,7 @@ post.indicator = function(name_en = as.character(),
                           node_pt = as.character()){
 
 
-  body = '{
+body = '{
   "name": {
     "en-us": "name_en",
     "pt-br": "name_pt"
