@@ -14,7 +14,6 @@
 #' @param description_pt representa a descrição do indicador em português;
 #' @param description_full_en representa a descrição completa em inglês;
 #' @param description_full_pt representa a descrição completa em português;
-#' @param unit representa a unidade de medida do indicador;
 #' @param country representa o país dos dados presente no indicador;
 #' @param sector representa o setor no qual o indicador se insere;
 #' @param acess_group representa o grupo no qual o indicador está;
@@ -40,7 +39,6 @@
 #'                                  description_pt = "...",
 #'                                  description_full_en = "...",
 #'                                  description_full_pt = "...",
-#'                                  unit = "USD Milhões",
 #'                                  country = "AR",
 #'                                  sector = "BOP",
 #'                                  acess_group = "Geral",
@@ -60,7 +58,6 @@ post.indicator = function(name_en = as.character(),
                           description_pt = as.character(),
                           description_full_en = as.character(),
                           description_full_pt = as.character(),
-                          unit = as.character(),
                           country = as.character(),
                           sector = as.character(),
                           acess_group = as.character(),
@@ -89,7 +86,6 @@ body = '{
     "en-us": "description_full_en",
     "pt-br": "description_full_pt"
   },
-  "unit": "units",
   "country": "countrys",
   "sector": "sectores",
   "access_group": "groups",
@@ -148,7 +144,6 @@ body = '{
                           description_pt = description_pt,
                           description_full_en = description_full_en,
                           description_full_pt = description_full_pt,
-                          unit = unit,
                           country = country,
                           sector = sector,
                           acess_group = acess_group,
@@ -179,7 +174,6 @@ body = '{
                                         "description_pt" = description_pt,
                                         "description_full_en" = description_full_en,
                                         "description_full_pt" = description_full_pt,
-                                        "units" = unit,
                                         "countrys" = country,
                                         "sectores" = sector,
                                         "groups" = acess_group,
