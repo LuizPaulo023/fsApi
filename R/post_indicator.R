@@ -29,8 +29,8 @@
 #' @examples
 #' \dontrun{
 #'
-#' send_indicadores = post.indicator("access_type": "default",
-#'                                  "indicator_code": "ARGDP0050",
+#' send_indicadores = post.indicator(access_type = default,
+#'                                  indicator_code = ARGDP0050,
 #'                                  name_en = "ARG - Exports of Goods",
 #'                                  name_pt = "ARG - Exportações de Bens",
 #'                                  short_en = "Export. Goods",
