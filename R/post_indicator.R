@@ -48,7 +48,9 @@
 #'
 #' @export
 
-post.indicator = function(name_en = as.character(),
+post.indicator = function(access_type = as.character(),
+                          indicator_code = as.character(),
+                          name_en = as.character(),
                           name_pt = as.character(),
                           short_en = as.character(),
                           short_pt = as.character(),
@@ -64,8 +66,9 @@ post.indicator = function(name_en = as.character(),
                           node_en = as.character(),
                           node_pt = as.character()){
 
-
 body = '{
+ "access_type": "acess",
+  "indicator_code": "code",
   "name": {
     "en-us": "name_en",
     "pt-br": "name_pt"
@@ -134,7 +137,9 @@ body = '{
   ]
 }';
 
-  input <- tibble::tibble(name_en = name_en,
+  input <- tibble::tibble(access_type = acess_type,
+                          indicator_code = indicator_code,
+                          name_en = name_en,
                           name_pt = name_pt,
                           short_name_en = short_en,
                           short_name_pt = short_pt,
@@ -164,7 +169,9 @@ body = '{
     dplyr::rowwise() %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
-                                      c("name_en" = name_en,
+                                      c("acess" = acess_type,
+                                        "code" = indicator_code,
+                                        "name_en" = name_en,
                                         "name_pt" = name_pt,
                                         "short_en" = short_en,
                                         "short_pt" = short_pt,
@@ -206,7 +213,7 @@ body = '{
                                                                      "", strsplit(input$node_en, ", ")[[1]][5]),
                                         "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
                                                                      "", strsplit(input$node_pt, ", ")[[1]][5]))),
-              url = "https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators") %>% dplyr::select(-body)
+              url = "https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/api/v1/indicators") %>% dplyr::select(-body)
 
 
   for (i in 1:length(send_fs$body_json)) {
