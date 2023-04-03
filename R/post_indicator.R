@@ -29,7 +29,9 @@
 #' @examples
 #' \dontrun{
 #'
-#' send_indicadores = post.indicator(name_en = "ARG - Exports of Goods",
+#' send_indicadores = post.indicator("access_type": "default",
+#'                                  "indicator_code": "ARGDP0050",
+#'                                  name_en = "ARG - Exports of Goods",
 #'                                  name_pt = "ARG - Exportações de Bens",
 #'                                  short_en = "Export. Goods",
 #'                                  short_pt = "Exp. Bens",
@@ -221,7 +223,7 @@ body = '{
        sends_indicators = httr::VERB("POST",
                                      url = send_fs$url[i],
                                      body = send_fs$body_json[i],
-                                     httr::add_headers(token_homo))
+                                     httr::add_headers(token_dev))
 
       cat(httr::content(sends_indicators, 'text'))
 
