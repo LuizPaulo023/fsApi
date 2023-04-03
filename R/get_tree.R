@@ -22,35 +22,29 @@
 #' @export
 
 get.tree <- function(master_node = as.character(),
-                     token = as.character()){
+                     token = as.character(),
+                     url){
 
-      db_fs = httr::VERB("GET", url = "https://4i-featurestore-prod-api.azurewebsites.net/api/v1/domains",
+      db_fs = httr::VERB("GET", url = paste0(url, 'api/v1/domains'),
                     add_headers(token)) %>%
               httr::content("parsed")
 
       tree = db_fs[["tree"]] # Puxando apenas árvore da lista
 
       if(master_node == "all"){
-
-      tree = data.frame(tree = cbind(tree))
-
-        }else if(master_node == "list"){
-
-      tree = db_fs[["tree"]]
-
-  }else{
-
-number_node = tree %>%
-       purrr::map_df(function(index) {
-       dplyr::tibble(node = index$node)
-       }
-  ) %>% dplyr::mutate(n = 1:length(tree)) %>%
-        dplyr::filter(node == master_node) %>%
-        dplyr::select(n)
-
-      tree = data.frame(tree = cbind(tree))[[1]][[number_node$n]]
-
-   }
+        tree = data.frame(tree = cbind(tree))
+      } else if(master_node == "list"){
+        tree = db_fs[["tree"]]
+      } else{
+        number_node = tree %>%
+          purrr::map_df(function(index) {dplyr::tibble(node = index$node)}) %>% 
+          dplyr::mutate(n = 1:length(tree)) %>%
+          dplyr::filter(node == master_node) %>%
+          dplyr::select(n)
+        
+        tree = data.frame(tree = cbind(tree))[[1]][[number_node$n]]
+        
+      }
 
    return(tree)
 

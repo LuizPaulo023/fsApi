@@ -51,6 +51,7 @@
 #' @export
 
 post.indicator = function(access_type = as.character(),
+                          access_group = as.character(),
                           indicator_code = as.character(),
                           name_en = as.character(),
                           name_pt = as.character(),
@@ -64,13 +65,14 @@ post.indicator = function(access_type = as.character(),
                           description_full_pt = as.character(),
                           country = as.character(),
                           sector = as.character(),
-                          acess_group = as.character(),
                           node_en = as.character(),
-                          node_pt = as.character()){
+                          node_pt = as.character(),
+                          token = token,
+                          url = url){
 
 body = '{
- "access_type": "acess",
-  "indicator_code": "code",
+ "access_type": "jesus",
+  "indicator_code": "i_code",
   "name": {
     "en-us": "name_en",
     "pt-br": "name_pt"
@@ -103,43 +105,12 @@ body = '{
         "en-us": "name_one_tree_en",
         "pt-br": "name_one_tree_pt"
       }
-    },
-    {
-      "id": "id_two",
-      "node": "node_two",
-      "name": {
-        "en-us": "name_two_tree_en",
-        "pt-br": "name_two_tree_pt"
-      }
-    },
-    {
-      "id": "id_three",
-      "node": "node_three",
-      "name": {
-        "en-us": "name_three_tree_en",
-        "pt-br": "name_three_tree_pt"
-      }
-    },
-    {
-      "id": "id_four",
-      "node": "node_four",
-      "name": {
-        "en-us": "name_four_tree_en",
-        "pt-br": "name_four_tree_pt"
-      }
-    },
-    {
-      "id": "id_five",
-      "node": "node_five",
-      "name": {
-        "en-us": "name_five_tree_en",
-        "pt-br": "name_five_tree_pt"
-      }
     }
   ]
 }';
 
-  input <- tibble::tibble(access_type = acess_type,
+  input <- tibble::tibble(access_type = access_type,
+                          access_group = access_group,
                           indicator_code = indicator_code,
                           name_en = name_en,
                           name_pt = name_pt,
@@ -153,13 +124,12 @@ body = '{
                           description_full_pt = description_full_pt,
                           country = country,
                           sector = sector,
-                          acess_group = acess_group,
                           node_en = node_en,
                           node_pt = node_pt)
 
-
-  id_nodes = fsApi::get.id(tree = fsApi::get.tree(master_node = base::strsplit(input$node_en, ", ")[[1]][1],
-                           token = token_prod),
+  id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en, ", ")[[1]][1],
+                                    token = token,
+                                    url = url),
                            node = input$node_en)
 
   id_nodes = tibble::tibble(node = c(id_nodes$node,
@@ -171,8 +141,8 @@ body = '{
     dplyr::rowwise() %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
-                                      c("acess" = acess_type,
-                                        "code" = indicator_code,
+                                      c("jesus" = access_type,
+                                        "i_code" = indicator_code,
                                         "name_en" = name_en,
                                         "name_pt" = name_pt,
                                         "short_en" = short_en,
@@ -185,7 +155,7 @@ body = '{
                                         "description_full_pt" = description_full_pt,
                                         "countrys" = country,
                                         "sectores" = sector,
-                                        "groups" = acess_group,
+                                        "groups" = access_group,
                                         # Nodes, IDS - Parte das funções
                                         "id_one" = id_nodes[1,]$id,
                                         "node_one" = id_nodes[1,]$node,
@@ -215,7 +185,8 @@ body = '{
                                                                      "", strsplit(input$node_en, ", ")[[1]][5]),
                                         "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
                                                                      "", strsplit(input$node_pt, ", ")[[1]][5]))),
-              url = "https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/api/v1/indicators") %>% dplyr::select(-body)
+              url = paste0(url,"api/v1/indicators")) %>% 
+              dplyr::select(-body)
 
 
   for (i in 1:length(send_fs$body_json)) {
@@ -223,14 +194,11 @@ body = '{
        sends_indicators = httr::VERB("POST",
                                      url = send_fs$url[i],
                                      body = send_fs$body_json[i],
-                                     httr::add_headers(token_dev))
+                                     httr::add_headers(token))
 
-      cat(httr::content(sends_indicators, 'text'))
+        cat(httr::content(sends_indicators, 'text'))
 
   }
-
-  return(send_fs)
-
 }
 
 

@@ -53,31 +53,9 @@ db_tree = fsApi::get.tree(master_node = "Brazil",
 
 fsApi::get.body()
 
-# Criando indicadores -----------------------------------------------------------------------------------------
-# ATENÇÃO: A FUNÇÃO POST.INDICATOR É DEPENDENTE DAS FUNÇÕES {get.tree} e {get.id}
-
-library(fsApi)
-
-send_indicadores = post.indicator(name_en = "ARG - Exports of Goods",
-                                  name_pt = "ARG - Exportações de Bens",
-                                  short_en = "Export. Goods",
-                                  short_pt = "Exp. Bens",
-                                  source_en = "Indec",
-                                  source_pt = "Indec",
-                                  description_en = "....",
-                                  description_pt = "...",
-                                  description_full_en = "...",
-                                  description_full_pt = "...",
-                                  country = "AR",
-                                  sector = "BOP",
-                                  acess_group = "Geral",
-                                  node_en = "Argentina",
-                                  node_pt = "Argentina")
-
 # POST.indicator para dev ---------------------------------------------------------------------------------------
 
-
- send_indicadores = post.indicator(access_type = "default",
+send_indicadores = post.indicator(access_type = "default",
                                   indicator_code = "ARGDP0050",
                                   name_en = "ARG - Exports of Goods",
                                   name_pt = "ARG - Exportações de Bens",
