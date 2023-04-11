@@ -31,18 +31,19 @@ gen_sids_by_group <- function(indicators_metadado,
   region_code <- indicators_metadado$regioes %>%
     unique()
 
-  indicator_code = indicators_metadado$codigo %>%
+  indicator_code = indicators_metadado$indicator_code %>%
     unique()
 
   if(region_code != '000') {
     region_code = str_replace_all(region_code, ' ', '')
+    region_code = str_replace_all(region_code, "[\r\n]" , "")
     region_code = str_split(region_code, ',')[[1]]
   }
 
-  all_sids <- tidyr::expand_grid(codigo = indicator_code,
+  all_sids <- tidyr::expand_grid(indicator_code = indicator_code,
                                  region = region_code) %>%
     left_join(indicators_metadado %>%
-                select(-c(subgrupo, regioes))) %>%
+                select(-c(regioes))) %>%
     left_join(depara_grupos) %>%
     mutate(cod1_cod2 = paste0(str_sub(transfs, 1,1),
                               str_sub(transfs, 4,4))) %>%
@@ -55,7 +56,7 @@ gen_sids_by_group <- function(indicators_metadado,
            un_en = ifelse(is.na(un_en),
                           ifelse(str_sub(cod1_cod2,1,1) %in% c('O', 'S'), original_en, real_en),
                           un_en),
-           sid = paste0(codigo, region, transfs)) %>%
+           sid = paste0(indicator_code, region, transfs)) %>%
     ungroup() %>%
     select(c(sid, un_pt, un_en))
 
@@ -101,7 +102,7 @@ post_series <- function(indicators_metadado, token, url){
                                                           "step_quatro" = transf_2,
                                                           "step_cinco" = un_en,
                                                           "step_seis" = un_pt)),
-                      url = paste0(url, indicador, "/series"))
+                      url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
 
     for (series in unique(send_fs$sid)) {
       sending_sid <- send_fs %>%
@@ -112,7 +113,6 @@ post_series <- function(indicators_metadado, token, url){
                                 body = sending_sid$body_json,
                                 httr::add_headers(token))
 
-      print(series)
       cat(httr::content(update_sids, 'text'))
     }
   }
