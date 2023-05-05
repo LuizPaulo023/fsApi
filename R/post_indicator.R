@@ -69,8 +69,8 @@ post.indicator = function(access_type = as.character(),
                           node_pt = as.character(),
                           token = token,
                           url = url){
-
-body = '{
+  
+  body = '{
  "access_type": "jesus",
   "indicator_code": "i_code",
   "name": {
@@ -108,7 +108,7 @@ body = '{
     }
   ]
 }';
-
+  
   input <- tibble::tibble(access_type = access_type,
                           access_group = access_group,
                           indicator_code = indicator_code,
@@ -126,78 +126,78 @@ body = '{
                           sector = sector,
                           node_en = node_en,
                           node_pt = node_pt)
-
+  
   id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en, ", ")[[1]][1],
                                     token = token,
                                     url = url),
-                           node = input$node_en)
-
+                    node = input$node_en)
+  
   id_nodes = tibble::tibble(node = c(id_nodes$node,
                                      rep("", 5-length(id_nodes$id))),
                             id = c(id_nodes$id,
                                    rep("", 5-length(id_nodes$id))))
-
+  
   send_fs = input %>%
     dplyr::rowwise() %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
-                                      c("jesus" = access_type,
-                                        "i_code" = indicator_code,
-                                        "name_en" = name_en,
-                                        "name_pt" = name_pt,
-                                        "short_en" = short_en,
-                                        "short_pt" = short_pt,
-                                        "source_en" = source_en,
-                                        "source_pt" = source_pt,
-                                        "description_en" = description_en,
-                                        "description_pt" = description_pt,
-                                        "description_full_en" = description_full_en,
-                                        "description_full_pt" = description_full_pt,
-                                        "countrys" = country,
-                                        "sectores" = sector,
-                                        "groups" = access_group,
-                                        # Nodes, IDS - Parte das funções
-                                        "id_one" = id_nodes[1,]$id,
-                                        "node_one" = id_nodes[1,]$node,
-                                        "name_one_tree_en" = strsplit(input$node_en, ", ")[[1]][1],
-                                        "name_one_tree_pt" = strsplit(input$node_pt, ", ")[[1]][1],
-                                        "id_two" = id_nodes[2,]$id,
-                                        "node_two" = id_nodes[2,]$node,
-                                        "name_two_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][2]),
-                                                                    "", strsplit(input$node_en, ", ")[[1]][2]),
-                                        "name_two_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][2]),
-                                                                    "", strsplit(input$node_pt, ", ")[[1]][2]),
-                                        "id_three" = id_nodes[3,]$id,
-                                        "node_three" = id_nodes[3,]$node,
-                                        "name_three_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][3]),
-                                                                      "", strsplit(input$node_en, ", ")[[1]][3]),
-                                        "name_three_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][3]),
-                                                                      "", strsplit(input$node_pt, ", ")[[1]][3]),
-                                        "id_four" = id_nodes[4,]$id,
-                                        "node_four" = id_nodes[4,]$node,
-                                        "name_four_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][4]),
-                                                                     "", strsplit(input$node_en, ", ")[[1]][4]),
-                                        "name_four_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][4]),
-                                                                     "", strsplit(input$node_pt, ", ")[[1]][4]),
-                                        "id_five" = id_nodes[5,]$id,
-                                        "node_five" = id_nodes[5,]$node,
-                                        "name_five_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][5]),
-                                                                     "", strsplit(input$node_en, ", ")[[1]][5]),
-                                        "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
-                                                                     "", strsplit(input$node_pt, ", ")[[1]][5]))),
-              url = paste0(url,"api/v1/indicators")) %>% 
-              dplyr::select(-body)
-
-
+                                                       c("jesus" = access_type,
+                                                         "i_code" = indicator_code,
+                                                         "name_en" = name_en,
+                                                         "name_pt" = name_pt,
+                                                         "short_en" = short_en,
+                                                         "short_pt" = short_pt,
+                                                         "source_en" = source_en,
+                                                         "source_pt" = source_pt,
+                                                         "description_en" = description_en,
+                                                         "description_pt" = description_pt,
+                                                         "description_full_en" = description_full_en,
+                                                         "description_full_pt" = description_full_pt,
+                                                         "countrys" = country,
+                                                         "sectores" = sector,
+                                                         "groups" = access_group,
+                                                         # Nodes, IDS - Parte das funções
+                                                         "id_one" = id_nodes[1,]$id,
+                                                         "node_one" = id_nodes[1,]$node,
+                                                         "name_one_tree_en" = strsplit(input$node_en, ", ")[[1]][1],
+                                                         "name_one_tree_pt" = strsplit(input$node_pt, ", ")[[1]][1],
+                                                         "id_two" = id_nodes[2,]$id,
+                                                         "node_two" = id_nodes[2,]$node,
+                                                         "name_two_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][2]),
+                                                                                     "", strsplit(input$node_en, ", ")[[1]][2]),
+                                                         "name_two_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][2]),
+                                                                                     "", strsplit(input$node_pt, ", ")[[1]][2]),
+                                                         "id_three" = id_nodes[3,]$id,
+                                                         "node_three" = id_nodes[3,]$node,
+                                                         "name_three_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][3]),
+                                                                                       "", strsplit(input$node_en, ", ")[[1]][3]),
+                                                         "name_three_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][3]),
+                                                                                       "", strsplit(input$node_pt, ", ")[[1]][3]),
+                                                         "id_four" = id_nodes[4,]$id,
+                                                         "node_four" = id_nodes[4,]$node,
+                                                         "name_four_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][4]),
+                                                                                      "", strsplit(input$node_en, ", ")[[1]][4]),
+                                                         "name_four_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][4]),
+                                                                                      "", strsplit(input$node_pt, ", ")[[1]][4]),
+                                                         "id_five" = id_nodes[5,]$id,
+                                                         "node_five" = id_nodes[5,]$node,
+                                                         "name_five_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][5]),
+                                                                                      "", strsplit(input$node_en, ", ")[[1]][5]),
+                                                         "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
+                                                                                      "", strsplit(input$node_pt, ", ")[[1]][5]))),
+                  url = paste0(url,"api/v1/indicators")) %>% 
+    dplyr::select(-body)
+  
+  
   for (i in 1:length(send_fs$body_json)) {
-
-       sends_indicators = httr::VERB("POST",
-                                     url = send_fs$url[i],
-                                     body = send_fs$body_json[i],
-                                     httr::add_headers(token))
-
-        cat(httr::content(sends_indicators, 'text'))
-
+    
+    sends_indicators = httr::VERB("POST",
+                                  url = send_fs$url[i],
+                                  body = send_fs$body_json[i],
+                                  httr::add_headers(token))
+    
+    cat(httr::content(sends_indicators, 'text'))
+    
   }
 }
 
