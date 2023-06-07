@@ -33,19 +33,13 @@ for (i in 1:length(send_fs$body_json)) {
   path_series <- VERB("PATCH",
                       url = send_fs$url[i],
                       body = send_fs$body_json[i],
-                      httr::add_headers(token))
-  
-  if(!is.null(path_series) | length(path_series) == 0){
-    
-    cat("Série", send_fs$sid[i], "atualizada com sucesso:", "\n")
+                      httr::add_headers(token_to_use))
+
+    cat("Série:", send_fs$sid[i], "\n")
     cat("\n")
     cat(httr::content(path_series, "text"))
-    
-  }else{
-    
-    stop("Erro!")
-    
-    }
+    cat("\n")
+    cat("\n")
   
   
   }
