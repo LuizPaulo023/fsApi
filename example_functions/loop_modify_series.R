@@ -30,7 +30,7 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  'Authorization' = 'Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
   'Content-Type' = 'application/json'
 )
 
@@ -43,11 +43,11 @@ token_prod = c(
   'Content-Type' = 'application/json'
 )
 
-url_prod = ''
+url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
 
 # Definindo o ambiente ---------------------------------------------------------
 
-ambiente = 'dev' #\ opções: dev, stg, prod
+ambiente = 'stg' #\ opções: dev, stg, prod
 
 # Configurando a url e token de acordo com o ambiente escolhido
 
@@ -68,7 +68,6 @@ if(ambiente == 'dev') {
 
 }
 
-
 # Metadados --------------------------------------------------------------------
 
 metadados <- readxl::read_excel(paste0(user,
@@ -76,17 +75,14 @@ metadados <- readxl::read_excel(paste0(user,
                                        'metadados_migração.xlsx'),
                                 skip = 1) %>% janitor::clean_names()
 
-
-# Grupos de transformação ------------------------------------------------------
-
-grupo_transf <- readxl::read_excel(paste0(user, path,
-                                          '/diagrama_grupo_transfs.xlsx'),
-                                   sheet = 'depara') %>%
-                pivot_longer(cols = everything(),
-                             names_to = 'grupo',
-                             values_to = 'transfs') %>%
-                arrange(grupo) %>%
-                filter(!is.na(transfs))
+metadados_filt <- metadados %>% 
+  #Limpa os indicadores que não serão editados
+  filter(descontinuada == 'FALSE') %>% 
+  filter(is.na(nao_migrar)) %>% 
+  filter(str_detect(grupo_4macro, c('Geral'))) %>% 
+  filter(in_fs) %>% 
+  pluck('indicator_code') %>% 
+  head()
 
 # Unidade ----------------------------------------------------------------------
 
@@ -94,53 +90,16 @@ depara_unidade <- readxl::read_excel(paste0(user, path,
                                             '/diagrama_grupo_transfs.xlsx'),
                                      sheet = 'depara unidade medida')
 
-# Puxando todas as aberturas de indicadores da FS -----------------------
-# Isto é, importando aberturas disponíveis na FS
-
-series_fs <- function(url, token, indicators){
-
-  all_series <- tibble()# para preenchimento
-
-  for (indicator in indicators) {
-       get_fs <- httr::VERB("GET",
-                             url = paste0(url, "api/v1/indicators/", indicator, "/series?limit=3000"),
-                             add_headers(token)) %>%
-                 httr::content("parsed")
-
-    current_series <- tibble()
-    for (i in seq_along(get_fs[["data"]])) {
-         current_code <- get_fs[["data"]][[i]][["code"]]
-         current_series <- dplyr::bind_rows(current_series,
-                                  tibble(code = current_code))
-    }
-
-    all_series <- dplyr::bind_rows(all_series, current_series)
-  }
-
-  return(all_series)  # Retorna o data frame com todas as séries
-}
-
-# Importando as aberturas dos seguintes indicadores:
-# Indicadores com problema na unidade de medida:
-
-# problem_units <- c("ARPRC0114", "BRBOP0044", "BRBOP0014",
-#                    "BRBOP0010", "BRBOP0005", "BRBOP0002",
-#                    "BRBOP0001", "BRBOP0006", "BRBOP0003",
-#                    "BRBOP0011", "BRPUB0021", "BRINR0026",
-#                    "BRINR0001", "BRPUB0001", "BRBOP0007",
-#                    "WDPRC0225", "WDPRC0118")
-
 # Chamando a função GET FS-series ----------------------------------------------
 
-get_fs = series_fs(url = url_to_use,
-                   token = token_to_use,
-                   # indicators aceita um vetor com n elementos
-                   indicators = "BRBOP0044") %>% dplyr::rename(sids = code)
+sids_in_fs = get_sids(url = url_to_use,
+                      token = token_to_use,
+                      indicators = metadados_filt) %>%
+  dplyr::rename(sids = code)
 
+# Definindo a unidade de medida por SID
 
-# Organizando as unidades de medida
-
-metadados_update <- get_fs %>%
+metadados_update <- sids_in_fs %>%
                     dplyr::mutate(indicator_code = str_sub(sids, start = 1, end = 9),
                                   regioes = str_sub(sids, start = 10, end = 12),
                                   transfs = str_sub(sids, start = 13, end = 16)) %>%
