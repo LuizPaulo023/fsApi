@@ -1,8 +1,8 @@
 #' @title Alterando aberturas/transformações presentes na FS
 #' @author Luiz Paulo T. Gonçalves
-#' @details A função é dependente das funções get_id e get_tree 
+#' @details A função é dependente das funções get_id e get_tree
 
-modify_indicator <- function(modify_ind = as.logical(), 
+modify_indicator <- function(modify_ind = as.logical(),
                              indicator = as.character(),
                              access_type = as.character(),
                              name_en = as.character(),
@@ -20,14 +20,14 @@ modify_indicator <- function(modify_ind = as.logical(),
                              token = as.character(),
                              url = as.character()){
 
-  
+
   if(modify_ind){
-  
-# \\ Definindo o body 
-# \\ Preenchimento obrigatório de todos os campos do body 
-# \\ Adição na nova versão dos ID's e Nodes 
+
+# \\ Definindo o body
+# \\ Preenchimento obrigatório de todos os campos do body
+# \\ Adição na nova versão dos ID's e Nodes
 # \\ Campo <indicador> não preencher o body
-  
+
 body = '{
   "access_type": "step_one",
   "description": {
@@ -99,8 +99,8 @@ body = '{
 # if(modify_ind == FALSE){
 # stop("")
 # }else{}
-  
-input <- tibble::tibble(indicador = indicator, 
+
+input <- tibble::tibble(indicador = indicator,
                         access_type = access_type,
                         name_en = name_en,
                         name_pt = name_pt,
@@ -129,7 +129,7 @@ id_nodes = tibble::tibble(node = c(id_nodes$node,
 
 
 # Preenchendo o JSON -----------------------------------------------------------
-# \\Body 
+# \\Body
 
 pull_fs = input %>%
           dplyr::rowwise() %>%
@@ -174,29 +174,32 @@ pull_fs = input %>%
                         "name_five_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][5]),
                                                      "", strsplit(input$node_en, ", ")[[1]][5]),
                         "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
-                                                                                            "", strsplit(input$node_pt, ", ")[[1]][5]))),
+                                               "", strsplit(input$node_pt, ", ")[[1]][5])))
                         # url = paste0(url,"api/v1/indicators")
                         ) %>%  dplyr::select(-body)
 
-# Loop para alteração >1 um indicador 
+# Loop para alteração >1 um indicador
 
 for (i in 1:length(pull_fs$indicador)) {
-  # Exemplo base de URL 
+  # Exemplo base de URL
   #https://4i-featurestore-hmg-api.azurewebsites.net/api/v1/indicators/"
-  alterando <- httr::VERB("PUT", 
+  alterando <- httr::VERB("PUT",
                           url = paste0(url, "api/v1/indicators/",
-                                       pull_fs$indicador[1]),
-                          body = pull_fs$body_json[1],
+                                       pull_fs$indicador[i]),
+                          body = pull_fs$body_json[i],
                           add_headers(token))
-  
+
   cat(content(alterando, 'text'))
-  
+
   }
 
   }else{
-  
+
     return(NULL)
-    
+
   }
 
 }
+
+
+
