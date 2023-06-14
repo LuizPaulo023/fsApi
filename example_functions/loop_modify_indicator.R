@@ -19,7 +19,7 @@ path <- '4intelligence/Feature Store - Documentos/DRE/Documentação/migracao/'
 # Definindo parâmetros do usuário na API - ambiente dev
 
 token_dev = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpXYkhLcUtMeGxIVDdNX2lpbHVLVSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vZGV2ZWxvcG1lbnQtNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQyNzFhZGIwMTc4ZjY4MDg3MTFhYWUwIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9kZXZlbG9wbWVudC00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NDY2MjgsImV4cCI6MTY4NjgzMzAyOCwiYXpwIjoiUGx4STk0T0dsVFQ1Zk9pYklhQUV0cU05MWh0OVRldFQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.cIDCfjntCc7HqazcWFm1YdgWBtByJvsgGtmagjrpZaD8kijMG56TiOnNpZ7h4-zkW1z47JbrRAt5t9GuFCmNhVlVtc_rPNNuktsWZj8DeD3TUTagoPqVZrBFGQvCThpMhFiAb2rVJ980IidqOucwZgLZjCErV_xxn2-Z-JBniu02LRtwUHGpPO5N8JHqzFNEFEBMOXoOcco-EIAq4OqHfSjwIrp2iZSpQCUiffXmk7kTnh4tkIMm_j1dHhEX0W1TzzKYULX1Kdi7Z1VhZL_WJatTxapvH09-uyfOZoo1y0LGkK5VhhgAKhRop3hGU6DhLyQllE2gI_5xw6TqYpuZ5A',
+  'Authorization' = '',
   'Content-Type' = 'application/json'
 )
 
@@ -28,7 +28,7 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY4NjY3NzIyMywiZXhwIjoxNjg2NzYzNjIzLCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.pIPt3jfZ9hVMcL5ARNT6TGHUzqGZ-NTezyNm5sKzk9H-RvfxIw-2SKxZ0TvLndnWEhZ70OHLsAqaAK608Er4stNPF3AWoECSVC8zvHppq6IVfCz6WWPoyqqOkMy3mb98mkoxy8AzFo75lbpWnPYtsgUP6h6LXHCdbBCtutp4oBQWfa1CpKUG0LBECZ-D80O7JXbte7UY26mAOg_LKJKjo-nkDBP602aXEMr5_dh3m2ys666Jiv_Shdgou9CicroISXiJJhTSh5ZFO3Vvylw8TpTDC_15WCzaG4g4CdpDFOYk2WoXoCjINPr448krOaLPsGSoisYB6Lx17uX1SrLiNA',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NDUxMDksImV4cCI6MTY4NjgzMTUwOSwiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.RQZyauSCTdIJlet8Bcvi_PaAwd16wBFslm077iIOUydWmb4KHD1XEff8sbI_8nxzbijeoIO7Zq4_5f4mLivPyR2fz9u23s4dhIA-7MRrpG8nqwcpH8QUBndWZXD88FAhW7_DATQ-BJq5BkL_Z3T5OSzqwewDWpfT6i-mwrMrQI6T9f4WrN3lCtoouHVyXgDAW28ZhRyubIl1ubLiAvt9ad5cWcGj66FGx_Bu9zcI2dHq3dqvLL2hIsRTatGfBltM9i-K1dcBkeXpsipr5AsWjEpsMuOkliLxL6DiFyVmaGaaXh7Cu5LiqS0gnrE9FEL-MsSqVj0OjQtFjg8cRviEnA',
   'Content-Type' = 'application/json'
 )
 
@@ -41,7 +41,7 @@ token_prod = c(
   'Content-Type' = 'application/json'
 )
 
-url_prod = ''
+url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
 
 # Definindo o ambiente ---------------------------------------------------------
 
@@ -81,7 +81,6 @@ metadados <- readxl::read_excel(paste0(user,
 # Filtros adicionais no final do bloco a seguir
 # Filtrando apenas as linhas com link_metodologia, sem NA ou ...
 
-
 metadados_filt <- metadados %>%
                   mutate(across(starts_with('description') | contains('_fs'),
                                 ~ifelse(is.na(.x), "...", .x)),
@@ -92,70 +91,49 @@ metadados_filt <- metadados %>%
                   filter(in_fs == T) %>% #\ Presentes na FS
                   filter(descontinuada == 'FALSE') %>%
                   filter(is.na(nao_migrar)) %>%
-                  filter(str_detect(grupo_4macro, c('Geral'))) %>%
-                  filter(indicator_code == "BRRTL0021")
-                        # mutate(description_pt_fs = str_replace(description_pt_fs, "\\\\n", ""))
+                  filter(str_detect(grupo_4macro, c('Geral'))) 
                   #filter(crawler == 'yahoo_finance')
                   #filter(!is.na(link_metodologia_fs)) %>%
                   #filter(link_metodologia_fs != "...")
 
-# Testando a função de modificação individualmente # Sem Loop  -----------------
-
-
-# ATENÇÃO: DEPENDENTE DAS FUNÇÕES {get.id} & {get.tree}
-# Se modify_ind = TRUE, altera o indicador solicitado
-
-# teste_modify = modify_indicator(modify_ind = TRUE,
-#                                 indicator = "BRINR0002",
-#                                 access_type = "default",
-#                                 name_en = "teste",
-#                                 name_pt = "TestandoFuncaoEnvioLoop",
-#                                 short_en = "teste",
-#                                 short_pt = "teste",
-#                                 source_en = "teste",
-#                                 source_pt = "teste",
-#                                 description_en = "teste",
-#                                 description_pt = "teste",
-#                                 description_full_en = "teste",
-#                                 description_full_pt = "teste",
-#                                 node_en = "Brazil",
-#                                 node_pt = "Brasil",
-#                                 token = token_to_use,
-#                                 url = url_to_use)
-
 # Loop indicadores -------------------------------------------------------------
+
+problem_sids <- tibble(sids = c())
 
 for (r in 1:nrow(metadados_filt)) {
 
   print(metadados_filt[r,'indicator_code'])
 
- fix_description_pt = gsub("\n", "", metadados_filt[r, 'description_pt_fs'][[1]])
- fix_description_en = gsub("\n", "", metadados_filt[r, 'description_en_fs'][[1]])
- fix_description_pt = gsub("\r", "", fix_description_pt)
- fix_description_en = gsub("\r", "", fix_description_en)
+  fix_description_pt = gsub("\n", "", metadados_filt[r, 'description_pt_fs'][[1]])
+  fix_description_en = gsub("\n", "", metadados_filt[r, 'description_en_fs'][[1]])
+  fix_description_pt = gsub("\r", "", fix_description_pt)
+  fix_description_en = gsub("\r", "", fix_description_en)
 
   # Chamando a função modificação
-  modify_indicator(modify_ind = TRUE,
-                   access_type = "default",
-                   indicator = metadados_filt[r, 'indicator_code'][[1]],
-                   name_en = metadados_filt[r, 'name_en_fs'][[1]],
-                   name_pt = metadados_filt[r, 'name_pt_fs'][[1]],
-                   short_en = metadados_filt[r, 'name_abv_en_fs'][[1]],
-                   short_pt = metadados_filt[r, 'name_abv_pt_fs'][[1]],
-                   source_en = metadados_filt[r, 'fonte_fs'][[1]],
-                   source_pt = metadados_filt[r, 'fonte_fs'][[1]],
-                   description_en =  fix_description_en,
-                   description_pt =  fix_description_pt,
-                   description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]],
-                   description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]],
-                   node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
-                                       ",")[[1]][[1]],
-                   node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
-                                       ",")[[1]][[1]],
-                   token = token_to_use,
-                   url = url_to_use)
-
-
-
+  status <- modify_indicator(
+    access_type = "default",
+    indicator = metadados_filt[r, 'indicator_code'][[1]],
+    name_en = metadados_filt[r, 'name_en_fs'][[1]],
+    name_pt = metadados_filt[r, 'name_pt_fs'][[1]],
+    short_en = metadados_filt[r, 'name_abv_en_fs'][[1]],
+    short_pt = metadados_filt[r, 'name_abv_pt_fs'][[1]],
+    source_en = metadados_filt[r, 'fonte_fs'][[1]],
+    source_pt = metadados_filt[r, 'fonte_fs'][[1]],
+    description_en =  fix_description_en,
+    description_pt =  fix_description_pt,
+    description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]],
+    description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]],
+    node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
+                        ",")[[1]][[1]],
+    node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
+                        ",")[[1]][[1]],
+    token = token_to_use,
+    url = url_to_use)
+  
+  if(status != 200) {
+    problem_sids <- problem_sids %>% 
+      add_row(sids = metadados_filt[r, 'indicator_code'][[1]])
+  }
+  
 }
 

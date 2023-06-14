@@ -30,7 +30,7 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY2NTc0MDgsImV4cCI6MTY4Njc0MzgwOCwiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.MkQCNcU8cL3QmDGJaDeSdq2hvWCAYBX0rnyRJ3fhKuBMJUWZ1Sx1oVe3_P0V4WmbHe_r30yCa40rOeDhs81J7skM9Gd2yAzaibfyc2FuXclGJ35Y6RB9Q4dBhcMRLaFjA-4dezXd-Y5bwcgTciI8GJgNk0BkXgCb5wMpwJL9f43j5pwFnswqf_nV2jKSi82px13M1Rm0DWq9qb-uBX_f2V_nBSCH3Gb5SLAeeUQ610xs8PTOThcRfAoiHV7D1OGhOcVISnWpbrGam4QOGAAmX1wClPMRXKHOdqZwX_oRomsnFl3gDH9iUi1arfy6Ij7bd1mpNGBPWCDBA2QT8H9Ssw',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NDUxMDksImV4cCI6MTY4NjgzMTUwOSwiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.RQZyauSCTdIJlet8Bcvi_PaAwd16wBFslm077iIOUydWmb4KHD1XEff8sbI_8nxzbijeoIO7Zq4_5f4mLivPyR2fz9u23s4dhIA-7MRrpG8nqwcpH8QUBndWZXD88FAhW7_DATQ-BJq5BkL_Z3T5OSzqwewDWpfT6i-mwrMrQI6T9f4WrN3lCtoouHVyXgDAW28ZhRyubIl1ubLiAvt9ad5cWcGj66FGx_Bu9zcI2dHq3dqvLL2hIsRTatGfBltM9i-K1dcBkeXpsipr5AsWjEpsMuOkliLxL6DiFyVmaGaaXh7Cu5LiqS0gnrE9FEL-MsSqVj0OjQtFjg8cRviEnA',
   'Content-Type' = 'application/json'
 )
 
@@ -127,14 +127,21 @@ metadados_update <- sids_in_fs %>%
 # Loop -------------------------------------------------------------
 # Aplicando update com a função modify_series
 
+problem_sids <- tibble(sids = c())
+
 for (i in 24:nrow(metadados_update)) {
 
   # Chamando a função modificação
-  modify_series(sid = metadados_update$sid[i],
-                units_en = metadados_update$un_en[i],
-                units_pt = metadados_update$un_pt[i],
-                token = token_to_use,
-                url = url_to_use)
+  status <- modify_series(sid = metadados_update$sid[i],
+                          units_en = metadados_update$un_en[i],
+                          units_pt = metadados_update$un_pt[i],
+                          token = token_to_use,
+                          url = url_to_use)
+  
+  if(status != 200) {
+    problem_sids <- problem_sids %>% 
+      add_row(sids = metadados_update$sid[i])
+  }
 
 }
 
