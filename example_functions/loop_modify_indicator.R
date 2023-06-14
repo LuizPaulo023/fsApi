@@ -1,8 +1,6 @@
 #' @title Exemplo de loop da função de update indicador
 #' @author Luiz Paulo Tavares Gonçalves
 
-rm(list = ls())
-
 # Dependências/Pkgs
 
 library(tidyverse)
@@ -137,3 +135,21 @@ for (r in 1:nrow(metadados_filt)) {
   
 }
 
+access_type = "default"
+indicator = metadados_filt[r, 'indicator_code'][[1]]
+name_en = metadados_filt[r, 'name_en_fs'][[1]]
+name_pt = metadados_filt[r, 'name_pt_fs'][[1]]
+short_en = metadados_filt[r, 'name_abv_en_fs'][[1]]
+short_pt = metadados_filt[r, 'name_abv_pt_fs'][[1]]
+source_en = metadados_filt[r, 'fonte_fs'][[1]]
+source_pt = metadados_filt[r, 'fonte_fs'][[1]]
+description_en =  fix_description_en
+description_pt =  fix_description_pt
+description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]]
+description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]]
+node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
+                    ",")[[1]]
+node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
+                    ",")[[1]]
+token = token_to_use
+url = url_to_use
