@@ -124,9 +124,9 @@ for (r in 1:nrow(metadados_filt)) {
     description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]],
     description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]],
     node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
-                        ",")[[1]][[1]],
+                        ",")[[1]],
     node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
-                        ",")[[1]][[1]],
+                        ",")[[1]],
     token = token_to_use,
     url = url_to_use)
   
