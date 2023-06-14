@@ -19,7 +19,7 @@ path <- '4intelligence/Feature Store - Documentos/DRE/Documentação/migracao/'
 # Definindo parâmetros do usuário na API - ambiente dev
 
 token_dev = c(
-  'Authorization' = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpXYkhLcUtMeGxIVDdNX2lpbHVLVSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vZGV2ZWxvcG1lbnQtNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQyNzFhZGIwMTc4ZjY4MDg3MTFhYWUwIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9kZXZlbG9wbWVudC00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NDY2MjgsImV4cCI6MTY4NjgzMzAyOCwiYXpwIjoiUGx4STk0T0dsVFQ1Zk9pYklhQUV0cU05MWh0OVRldFQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.cIDCfjntCc7HqazcWFm1YdgWBtByJvsgGtmagjrpZaD8kijMG56TiOnNpZ7h4-zkW1z47JbrRAt5t9GuFCmNhVlVtc_rPNNuktsWZj8DeD3TUTagoPqVZrBFGQvCThpMhFiAb2rVJ980IidqOucwZgLZjCErV_xxn2-Z-JBniu02LRtwUHGpPO5N8JHqzFNEFEBMOXoOcco-EIAq4OqHfSjwIrp2iZSpQCUiffXmk7kTnh4tkIMm_j1dHhEX0W1TzzKYULX1Kdi7Z1VhZL_WJatTxapvH09-uyfOZoo1y0LGkK5VhhgAKhRop3hGU6DhLyQllE2gI_5xw6TqYpuZ5A',
   'Content-Type' = 'application/json'
 )
 
@@ -82,8 +82,6 @@ metadados <- readxl::read_excel(paste0(user,
 # Filtrando apenas as linhas com link_metodologia, sem NA ou ...
 
 
-
-
 metadados_filt <- metadados %>%
                   mutate(across(starts_with('description') | contains('_fs'),
                                 ~ifelse(is.na(.x), "...", .x)),
@@ -96,6 +94,7 @@ metadados_filt <- metadados %>%
                   filter(is.na(nao_migrar)) %>%
                   filter(str_detect(grupo_4macro, c('Geral'))) %>%
                   filter(indicator_code == "BRRTL0021")
+                        # mutate(description_pt_fs = str_replace(description_pt_fs, "\\\\n", ""))
                   #filter(crawler == 'yahoo_finance')
                   #filter(!is.na(link_metodologia_fs)) %>%
                   #filter(link_metodologia_fs != "...")
@@ -130,6 +129,11 @@ for (r in 1:nrow(metadados_filt)) {
 
   print(metadados_filt[r,'indicator_code'])
 
+ fix_description_pt = gsub("\n", "", metadados_filt[r, 'description_pt_fs'][[1]])
+ fix_description_en = gsub("\n", "", metadados_filt[r, 'description_en_fs'][[1]])
+ fix_description_pt = gsub("\r", "", fix_description_pt)
+ fix_description_en = gsub("\r", "", fix_description_en)
+
   # Chamando a função modificação
   modify_indicator(modify_ind = TRUE,
                    access_type = "default",
@@ -140,8 +144,8 @@ for (r in 1:nrow(metadados_filt)) {
                    short_pt = metadados_filt[r, 'name_abv_pt_fs'][[1]],
                    source_en = metadados_filt[r, 'fonte_fs'][[1]],
                    source_pt = metadados_filt[r, 'fonte_fs'][[1]],
-                   description_en = metadados_filt[r, 'description_en_fs'][[1]],
-                   description_pt = metadados_filt[r, 'description_pt_fs'][[1]],
+                   description_en =  fix_description_en,
+                   description_pt =  fix_description_pt,
                    description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]],
                    description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]],
                    node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],

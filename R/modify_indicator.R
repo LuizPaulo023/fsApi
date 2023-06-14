@@ -191,6 +191,15 @@ for (i in 1:length(pull_fs$indicador)) {
 
   cat(content(alterando, 'text'))
 
+  # Código 200 = Sucesso na alteração
+  # {"message":"Indicator updated with success."}
+  if(alterando[["status_code"]] != 200){
+  #LÓGICA
+
+  }
+
+
+
   }
 
   }else{
