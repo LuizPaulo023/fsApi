@@ -2,8 +2,7 @@
 #' @author Luiz Paulo T. Gonçalves
 #' @details A função é dependente das funções get_id e get_tree
 
-modify_indicator <- function(modify_ind = as.logical(),
-                             indicator = as.character(),
+modify_indicator <- function(indicator = as.character(),
                              access_type = as.character(),
                              name_en = as.character(),
                              name_pt = as.character(),
@@ -19,9 +18,6 @@ modify_indicator <- function(modify_ind = as.logical(),
                              node_pt = as.character(),
                              token = as.character(),
                              url = as.character()){
-
-
-  if(modify_ind){
 
 # \\ Definindo o body
 # \\ Preenchimento obrigatório de todos os campos do body
@@ -96,9 +92,6 @@ body = '{
 }';
 
 # Guardando os inputs ----------------------------------------------------------
-# if(modify_ind == FALSE){
-# stop("")
-# }else{}
 
 input <- tibble::tibble(indicador = indicator,
                         access_type = access_type,
@@ -191,8 +184,8 @@ for (i in 1:length(pull_fs$indicador)) {
 
   cat(content(alterando, 'text'))
   
-  return(alterando)
+  return(alterando$status_code)
 }
-
+}
 
 
