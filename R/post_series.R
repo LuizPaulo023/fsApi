@@ -99,8 +99,8 @@ post_series <- function(indicators_metadado, token, url){
                                                                "step_dois" = region,
                                                                "step_tres" = transf_1,
                                                                "step_quatro" = transf_2,
-                                                               "step_cinco" = un_en,
-                                                               "step_seis" = un_pt)),
+                                                               "step_cinco" = un_pt,
+                                                               "step_seis" = un_en)),
                   url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
   
   result = tibble(sid = c(), status = c())
