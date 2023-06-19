@@ -103,6 +103,8 @@ post_series <- function(indicators_metadado, token, url){
                                                                "step_seis" = un_pt)),
                   url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
   
+  result = tibble(sid = c(), status = c())
+  
   for (series in unique(send_fs$sid)) {
     sending_sid <- send_fs %>%
       filter(sid == series)
@@ -112,8 +114,18 @@ post_series <- function(indicators_metadado, token, url){
                              body = sending_sid$body_json,
                              httr::add_headers(token))
     
-    cat(httr::content(update_sids, 'text'))
+    if(httr::content(update_sids, 'text') != a) {
+      result = result %>% 
+        add_row(sid = series, status = update_sids$status_code)
+    }
   }
-}
+  if(nrow(result) != 0) {
+    return(result)
+  } else{
+    return(NULL)
+  }
+  
+}  
+
 
 

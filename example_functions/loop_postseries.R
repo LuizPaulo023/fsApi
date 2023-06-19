@@ -4,42 +4,51 @@ library(httr)
 # Definindo parâmetros do usuário - dev  ----------------------------------------------------------
 
 token_dev = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpXYkhLcUtMeGxIVDdNX2lpbHVLVSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImcuYmVsbGVANGludGVsbGlnZW5jZS5jb20uYnIiLCJpc3MiOiJodHRwczovL2RldmVsb3BtZW50LTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MDI0MDFiZTUxZjM0YWQ1OWFlNmVhNCIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vZGV2ZWxvcG1lbnQtNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg2NjY1NzIyLCJleHAiOjE2ODY3NTIxMjIsImF6cCI6IlBseEk5NE9HbFRUNWZPaWJJYUFFdHFNOTFodDlUZXRUIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.h0j3VZKgcYlP98YccyBN5iLJk7oG1RwkjFTJ5lwIYRffZDhDKGQ9ni4O40uL9ibYQC17PKyTm7AMBnU3qtXCMjh42mer24slYvXZITt2VI4vP8hPLpAhBTpDPc_WofLF3n4teq8rkW1TyH7Vz93FvwbJVimVvo2lpZs47nQc2AlFPpRmuWTBG5SjVgSvepe7bjXhV53rOVzUUduLxWW9PF8a0n_-2JlPUk54VxbJyNJ1HgEALkcm7fXZdAq3PQ27IghwPsb0nnJflKqbwVTj78PK8-SwVqTYg-AsKj1d06qiFGJb5dhxRZK-eFxwg2hA1_VU71Bm6sOHKuUogwEbUA',
+  'Authorization' = 'Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
   'Content-Type' = 'application/json'
 )
 
 url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/'
 
-# Definindo o Token do usuário - homologação ----------------------------------------------------------
+# Definindo parâmetros do usuário na API - ambiente Stg
 
-token_hmg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpXYkhLcUtMeGxIVDdNX2lpbHVLVSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImcuYmVsbGVANGludGVsbGlnZW5jZS5jb20uYnIiLCJpc3MiOiJodHRwczovL2RldmVsb3BtZW50LTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MDI0MDFiZTUxZjM0YWQ1OWFlNmVhNCIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vZGV2ZWxvcG1lbnQtNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg2NTY4NDc2LCJleHAiOjE2ODY2NTQ4NzYsImF6cCI6IlBseEk5NE9HbFRUNWZPaWJJYUFFdHFNOTFodDlUZXRUIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.NJfqZ50whZX0ONRMcnyiX91ksBb8WZXBF1Nwv-nUpOwkXYuHM7RHL2H0WnIsJuCmtxQzT2jFDe_7zc4JvxiF72cBmuzlZcVkXQX0VcypnsE4C4Ze-1mWDJZa4NDo2V07epvVklbkaRQGjJJsFvhih_mCJS_z5s3c-Fd_aG7QaCyqkUtUCytS6zKbqPoYcvBCnoqOqLfEe9o0uKhETjl-K3P8xQUIOBH9s4lNltcFKnwoqHL_ADO6m5iWBifAuuC80TiCRXjy7g6M56emUCFQgIWnSf-QfySGL3n86pyqUE5zuVCjQKLUl0j-BCz5CUxAQmmTBBlJXsGRUk4h6P6StA',
+token_stg = c(
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODcxMjAxNTMsImV4cCI6MTY4NzIwNjU1MywiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.nRVSztZyeGP4wIIocRf5c_wWCalj6jofSBqrmkkrPf11hN4uc-zu7grfUGUf2LUvS2FbDWJMGKoxXQsrGfWPqW2sormNGvPitQdDS6N67ud24AJ9QDKEq4-MYz4BOiaZYMT-DXR0OnEWrFd7An-YzMkgrww70TzktwirQWeyzb1PDhYjg0-kKDI2slpGMknPVsF-_9Vpg3MyWWMoknDhl94DCTntdxrJ-oy2LBOD5orxzonZriURNkgmdBvt9ZZwnH5_lNjHWoBwE_9GlmhPAlhY46rNPCCwLPsmaS21DybD0C5NtUnIu4frtyo7RgN6gRrbWR-jI-XiXnBm02SgVQ',
   'Content-Type' = 'application/json'
 )
 
-url_hmg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
+url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
 
-# Definindo o Token do usuário - produção --------------------------------------------------------------------------
+# Definindo parâmetros do usuário na API - ambiente de produção
 
 token_prod = c(
-  'Authorization' = 'Bearer INSIRA O TOKEN DE ACESSO',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImlzcyI6Imh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQwMGQ1N2U4NTVjODRjMTkxNGE3NzRkIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY5MzA4OTEsImV4cCI6MTY4OTUyMjg5MSwiYXpwIjoibVNLWnFINUtxMVdvY3hKY2xuSVVSYlZJS1VXUmpvSnoiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.Y2DVhnLTKkSv75YA3tQdFFWpQxRfOXBfzqK_Q_hDTvD6LkL1y75inPMBWf3MUzQ3OzLWEwj3vhsjHvZI6q9_oqWox2CoDMhZt3T5sa-TMRFQm-BkLTmhZppf-ov6EjHmuRSSKE9zicHlE9rbutfWXTl8JSvKMmoOQA_7iXluGwez99xW_iGP7c5XR1uRjIf2BKtx98I4karcXQ9FL1RN8siGvjdIqZXyVE805BGIa4ouxnQg4HrzZOXSwBPqh1JJNJHAz2H47RS4F3pOV_tbDQS-8LZ2gYHIEVz7cx3rrrHrYnVdJmGWob3MDDn_8yAcCPQ1JRs1s8qCTmePIkeyEg',
   'Content-Type' = 'application/json'
 )
 
 url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
 
+# Definindo o ambiente ---------------------------------------------------------
 
-ambiente = 'dev' #opções: dev, stg, prod
+ambiente = 'stg' #\ opções: dev, stg, prod
+
+# Configurando a url e token de acordo com o ambiente escolhido
 
 if(ambiente == 'dev') {
+  
   token_to_use = token_dev
   url_to_use = url_dev
+  
 } else if (ambiente == 'stg') {
-  token_to_use = token_hmg
-  url_to_use = url_hmg
+  
+  token_to_use = token_stg
+  url_to_use = url_stg
+  
 } else if (ambiente == 'prod') {
+  
   token_to_use = token_prod
   url_to_use = url_prod
+  
 }
 
 # Novas Aberturas ---------------------------------------------------------------------------------------
@@ -83,15 +92,22 @@ metadados_filt <- metadados %>%
   #Organiza o grupo de transformação
   rename(grupo = grupo_transformacao) %>% 
   #Limpa os indicadores que não serão enviados
+  filter(in_fs == F) %>% 
   filter(descontinuada == 'FALSE') %>% 
   filter(is.na(nao_migrar)) %>% 
   filter(str_detect(grupo_4macro, c('Geral'))) %>% 
-  filter(crawler == 'ceic')
+  filter(grupo != 'Taxa - 3')
+
+sids_dev <- readxl::read_excel(paste0(user, path,
+                                      'SERIES_TO_COLLECT_DEV.xlsx')) %>% 
+  pluck('serie')
          
 #i = unique(metadados_filt[1,]$indicator_code)
 #154 = EUGDP0099
 
-for (i in unique(metadados_filt$indicator_code)) {
+problems = tibble(sid = c(), status = c())
+
+for (i in unique(metadados_filt$indicator_code)[19:1000]) {
   df_filt <- metadados_filt %>%
     filter(indicator_code == i)
 
@@ -100,24 +116,34 @@ for (i in unique(metadados_filt$indicator_code)) {
                                      depara_grupos = grupo_transf,
                                      depara_unidade = depara_unidade)
 
-  #Mantem apenas os SIDs com a combinação de região+transf_primaria
-  #Previamente existente no 4macro (e ativo)
-  sids_sub13 <- str_sub(sids_by_group$sid, 1, 13)
-  sids_to_send <- sids_by_group$sid[sids_sub13 %in% sids_4macro]
-
+  # #Mantem apenas os SIDs com a combinação de região+transf_primaria
+  # #Previamente existente no 4macro (e ativo)
+  # sids_sub13 <- str_sub(sids_by_group$sid, 1, 13)
+  # sids_to_send <- sids_by_group$sid[sids_sub13 %in% sids_4macro]
+  # 
+  # sids_to_send_metadata <- sids_by_group %>% 
+  #   #filter(str_sub(sid, 13,13) == 'O')
+  #   filter(sid %in% sids_to_send)
+  
+  # Mantem apenas os SIDs criados e validados em dev
   sids_to_send_metadata <- sids_by_group %>% 
     #filter(str_sub(sid, 13,13) == 'O')
-    filter(sid %in% sids_to_send)
+    filter(sid %in% sids_dev)
   
   print(paste0("Enviando as aberturas para o indicador: ", i))
-  
+
   if(sids_to_send_metadata %>% nrow() != 0){
-    
-    post_series(indicators_metadado = sids_to_send_metadata,
-                token = token_to_use,
-                url = url_to_use)
+
+   post_sid =  post_series(indicators_metadado = sids_to_send_metadata,
+                          token = token_to_use,
+                          url = url_to_use)
   } else {
     F
+  }
+  
+  if(!is.null(post_sid)) {
+    problems = problems %>% 
+      bind_rows(post_sid)
   }
 
   del_sids <- select_sids_to_del(indicator = i,
@@ -131,6 +157,7 @@ for (i in unique(metadados_filt$indicator_code)) {
                   del_series = del_sids,
                   token = token_to_use,
                   url = url_to_use)
+    stop()
   } else {
     print(paste0("Sem aberturas para excluir para o indicador ", i))
   }

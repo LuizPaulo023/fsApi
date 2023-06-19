@@ -35,7 +35,7 @@ url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente de produção
 
 token_prod = c(
-  'Authorization' = 'XXXXXXXXXXXXXXXXXXX',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImlzcyI6Imh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQwMGQ1N2U4NTVjODRjMTkxNGE3NzRkIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NjcwNzMsImV4cCI6MTY4OTM1OTA3MywiYXpwIjoibVNLWnFINUtxMVdvY3hKY2xuSVVSYlZJS1VXUmpvSnoiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.SKOjAmaepAKIJrhjtGF0Vlx_niiAFCsR6BDiRv0A-dyECsrcYw4NEvkjDE2PQcD3Yz5x-AcCz3bYVVituZeIsQF5QpBmTdGt56MzUEMkjPuSSvAKtNR7gLCxCT4PjrPNm3gEp2SbhvXGdFtu_oQtYzCjMg4Kv__91li4pnwAAQYia36u5aknxc1diSljOHCYFDMz0ST_AcHYrPisvdL7fyVNP72QKr_WF1aJOc7WNEhqQ7Wz8qAuPyjLPhIjNVKfbshi-cEm0IEBtw9NxuYwJ2mU6mBr3X-dLxWeIojmhxTbaFMJiJC5FoCee4gNqNgmfyuroAU5v0rQLFlwzxNDPg',
   'Content-Type' = 'application/json'
 )
 
@@ -43,7 +43,7 @@ url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
 
 # Definindo o ambiente ---------------------------------------------------------
 
-ambiente = 'stg' #\ opções: dev, stg, prod
+ambiente = 'prod' #\ opções: dev, stg, prod
 
 # Configurando a url e token de acordo com o ambiente escolhido
 
@@ -98,7 +98,7 @@ metadados_filt <- metadados %>%
 
 problem_sids <- tibble(sids = c())
 
-for (r in 1:nrow(metadados_filt)) {
+for (r in 174:nrow(metadados_filt)) {
 
   print(metadados_filt[r,'indicator_code'])
 
@@ -115,12 +115,12 @@ for (r in 1:nrow(metadados_filt)) {
     name_pt = metadados_filt[r, 'name_pt_fs'][[1]],
     short_en = metadados_filt[r, 'name_abv_en_fs'][[1]],
     short_pt = metadados_filt[r, 'name_abv_pt_fs'][[1]],
-    source_en = metadados_filt[r, 'fonte_fs'][[1]],
-    source_pt = metadados_filt[r, 'fonte_fs'][[1]],
+    source_en = metadados_filt[r, 'fonte_fs_en'][[1]],
+    source_pt = metadados_filt[r, 'fonte_fs_pt'][[1]],
     description_en =  fix_description_en,
     description_pt =  fix_description_pt,
-    description_full_en = metadados_filt[r, 'link_metodologia_fs'][[1]],
-    description_full_pt = metadados_filt[r, 'link_metodologia_fs'][[1]],
+    description_full_en = metadados_filt[r, 'link_metodologia_fs_en'][[1]],
+    description_full_pt = metadados_filt[r, 'link_metodologia_fs_pt'][[1]],
     node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
                         ",")[[1]],
     node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],

@@ -87,7 +87,16 @@ body = '{
         "en-us": "name_five_tree_en",
         "pt-br": "name_five_tree_pt"
       }
+    },
+    {
+      "id": "id_six",
+      "node": "node_six",
+      "name": {
+        "en-us": "name_six_tree_en",
+        "pt-br": "name_six_tree_pt"
+      }
     }
+    
   ]
 }';
 
@@ -105,20 +114,20 @@ input <- tibble::tibble(indicador = indicator,
                         description_pt = description_pt,
                         description_full_en = description_full_en,
                         description_full_pt = description_full_pt,
-                        node_en = node_en,
-                        node_pt = node_pt)
+                        node_en = list(node_en),
+                        node_pt = list(node_pt))
 
-# Chamando as funções para obter os ID's da árvore/nó ------------------------
+  # Chamando as funções para obter os ID's da árvore/nó ------------------------
 
-id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en, ", ")[[1]][1],
+id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en, ", ")[1],
                                   token = token,
                                   url = url),
-                  node = input$node_en)
+                  node = input$node_en[[1]])
 
 id_nodes = tibble::tibble(node = c(id_nodes$node,
-                                   rep("", 5-length(id_nodes$id))),
+                                   rep("", 6-length(id_nodes$id))),
                           id = c(id_nodes$id,
-                                 rep("", 5-length(id_nodes$id))))
+                                 rep("", 6-length(id_nodes$id))))
 
 
 # Preenchendo o JSON -----------------------------------------------------------
@@ -142,34 +151,41 @@ pull_fs = input %>%
                         # Nodes, IDS - Parte das funções
                         "id_one" = id_nodes[1,]$id,
                         "node_one" = id_nodes[1,]$node,
-                        "name_one_tree_en" = strsplit(input$node_en, ", ")[[1]][1],
-                        "name_one_tree_pt" = strsplit(input$node_pt, ", ")[[1]][1],
+                        "name_one_tree_en" = strsplit(input$node_en[[1]], ", ")[[1]][1],
+                        "name_one_tree_pt" = strsplit(input$node_pt[[1]], ", ")[[1]][1],
                         "id_two" = id_nodes[2,]$id,
                         "node_two" = id_nodes[2,]$node,
-                        "name_two_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][2]),
-                                                    "", strsplit(input$node_en, ", ")[[1]][2]),
-                        "name_two_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][2]),
-                                                    "", strsplit(input$node_pt, ", ")[[1]][2]),
+                        "name_two_tree_en" = ifelse(id_nodes[2,]$id == "",
+                                                    "", strsplit(input$node_en[[1]], ",")[[2]]),
+                        "name_two_tree_pt" = ifelse(id_nodes[2,]$id == "",
+                                                    "", strsplit(input$node_pt[[1]], ",")[[2]]),
                         "id_three" = id_nodes[3,]$id,
                         "node_three" = id_nodes[3,]$node,
-                        "name_three_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][3]),
-                                                      "", strsplit(input$node_en, ", ")[[1]][3]),
-                        "name_three_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][3]),
-                                                      "", strsplit(input$node_pt, ", ")[[1]][3]),
+                        "name_three_tree_en" = ifelse(id_nodes[3,]$id == "",
+                                                      "", strsplit(input$node_en[[1]], ",")[[3]]),
+                        "name_three_tree_pt" = ifelse(id_nodes[3,]$id == "",
+                                                      "", strsplit(input$node_pt[[1]], ",")[[3]]),
                         "id_four" = id_nodes[4,]$id,
                         "node_four" = id_nodes[4,]$node,
-                        "name_four_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][4]),
-                                                     "", strsplit(input$node_en, ", ")[[1]][4]),
-                        "name_four_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][4]),
-                                                     "", strsplit(input$node_pt, ", ")[[1]][4]),
+                        "name_four_tree_en" = ifelse(id_nodes[4,]$id == "",
+                                                     "", strsplit(input$node_en[[1]], ",")[[4]]),
+                        "name_four_tree_pt" = ifelse(id_nodes[4,]$id == "",
+                                                     "", strsplit(input$node_pt[[1]], ",")[[4]]),
                         "id_five" = id_nodes[5,]$id,
                         "node_five" = id_nodes[5,]$node,
-                        "name_five_tree_en" = ifelse(is.na(strsplit(input$node_en, ", ")[[1]][5]),
-                                                     "", strsplit(input$node_en, ", ")[[1]][5]),
-                        "name_five_tree_pt" = ifelse(is.na(strsplit(input$node_pt, ", ")[[1]][5]),
-                                               "", strsplit(input$node_pt, ", ")[[1]][5])))
+                        "name_five_tree_en" = ifelse(id_nodes[5,]$id == "",
+                                                     "", strsplit(input$node_en[[1]], ",")[[5]]),
+                        "name_five_tree_pt" = ifelse(id_nodes[5,]$id == "",
+                                                     "", strsplit(input$node_pt[[1]], ",")[[5]]),
+                        "id_six" = id_nodes[6,]$id,
+                        "node_six" = id_nodes[6,]$node,
+                        "name_six_tree_en" = ifelse(id_nodes[6,]$id == "",
+                                                    "", strsplit(input$node_en[[1]], ",")[[6]]),
+                        "name_six_tree_pt" = ifelse(id_nodes[6,]$id == "",
+                                                    "", strsplit(input$node_pt[[1]], ",")[[6]])
+                      ))) %>%  
                         # url = paste0(url,"api/v1/indicators")
-                        ) %>%  dplyr::select(-body)
+                      dplyr::select(-body)
 
 # Loop para alteração >1 um indicador
 

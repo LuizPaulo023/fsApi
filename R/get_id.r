@@ -25,8 +25,8 @@ get.id <- function(tree = as.list(),
   
   #Split nos Nodes
   node_vct = node %>%
-    stringr::str_split(", ") %>%
-    purrr::pluck(1)
+    stringr::str_split(",") %>% 
+    str_trim()
   
   node_lvls = base::length(node_vct)
   
@@ -62,7 +62,7 @@ get.id <- function(tree = as.list(),
           }
         }
         if(lvl_c == n_children) {
-          stop("Falha ao localizar id com o node informado")
+          return(tibble(id = 500))
         }
       }
     }

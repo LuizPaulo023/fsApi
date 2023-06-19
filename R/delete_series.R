@@ -22,7 +22,9 @@ select_sids_to_del <- function(indicator,
   current_series_raw <- httr::VERB("GET",
                                    url = paste0(url, "api/v1/indicators/", indicator, "/series?limit=2000"),
                                    add_headers(token)) %>% content("parsed")
-  
+  if(current_series_raw$total == 0) {
+    return(character(0))
+  }
   current_series <- tibble()
   
   for (i in 1:length(current_series_raw[['data']])) {
