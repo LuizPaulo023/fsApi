@@ -182,7 +182,7 @@ post.indicator = function(access_type = as.character(),
   id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en[[1]], ", ")[[1]][1],
                                     token = token,
                                     url = url),
-                    node = input$node_en[[1]])
+                      node = input$node_en[[1]])
   
   if(id_nodes$id[1] == 500) {
     return(500)
@@ -215,8 +215,8 @@ post.indicator = function(access_type = as.character(),
                                                          # Nodes, IDS - Parte das funções
                                                          "id_one" = id_nodes[1,]$id,
                                                          "node_one" = id_nodes[1,]$node,
-                                                         "name_one_tree_en" = strsplit(input$node_en[[1]], ", ")[[1]][1],
-                                                         "name_one_tree_pt" = strsplit(input$node_pt[[1]], ", ")[[1]][1],
+                                                         "name_one_tree_en" = strsplit(input$node_en[[1]], ",")[[1]][1],
+                                                         "name_one_tree_pt" = strsplit(input$node_pt[[1]], ",")[[1]][1],
                                                          "id_two" = id_nodes[2,]$id,
                                                          "node_two" = id_nodes[2,]$node,
                                                          "name_two_tree_en" = ifelse(id_nodes[2,]$id == "",
@@ -266,7 +266,8 @@ post.indicator = function(access_type = as.character(),
                                   body = send_fs$body_json[i],
                                   httr::add_headers(token))
     
-    if(httr::content(sends_indicators, 'text') != a) {
+    if(httr::content(sends_indicators, 'text') != "{\"message\":\"The resource already exists.\"}") {
+      print(httr::content(sends_indicators, 'text'))
       return(sends_indicators$status_code)
     } else {
       return(200)

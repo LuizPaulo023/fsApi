@@ -114,7 +114,7 @@ post_series <- function(indicators_metadado, token, url){
                              body = sending_sid$body_json,
                              httr::add_headers(token))
     
-    if(httr::content(update_sids, 'text') != a) {
+    if(httr::content(update_sids, 'text') != "{\"message\":\"The resource already exists.\"}") {
       result = result %>% 
         add_row(sid = series, status = update_sids$status_code)
     }
