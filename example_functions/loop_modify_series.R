@@ -27,7 +27,7 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY3NDUxMDksImV4cCI6MTY4NjgzMTUwOSwiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.RQZyauSCTdIJlet8Bcvi_PaAwd16wBFslm077iIOUydWmb4KHD1XEff8sbI_8nxzbijeoIO7Zq4_5f4mLivPyR2fz9u23s4dhIA-7MRrpG8nqwcpH8QUBndWZXD88FAhW7_DATQ-BJq5BkL_Z3T5OSzqwewDWpfT6i-mwrMrQI6T9f4WrN3lCtoouHVyXgDAW28ZhRyubIl1ubLiAvt9ad5cWcGj66FGx_Bu9zcI2dHq3dqvLL2hIsRTatGfBltM9i-K1dcBkeXpsipr5AsWjEpsMuOkliLxL6DiFyVmaGaaXh7Cu5LiqS0gnrE9FEL-MsSqVj0OjQtFjg8cRviEnA',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNFZGl0b3IiLCJpczRpIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJiZG1nIl19LCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMzRjNDI0YTE4ZjM3MDA2OGI3MTFkOSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg3ODY3Mzk4LCJleHAiOjE2OTA0NTkzOTgsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.d--jkPpKhwgOtGWOtnpOdYGJsYtjvnl19KBB0ueYCXWqcOYva64kUWXhPylyZPDe5wvOVsv8rsNHUzVNIXOszDNVmdTPYFaFVFSR9OZFxlICF4zCXmkv2IwmeZHXQwmkxzAvMc_IK439wqhOesAxaFdL53qVL5bfw58E1CXBaWyVaCxWSVAZX8VHsmYu8zrtLaCzJPCmtaEHevezY2PqJYIQtt1tzlwGRa_w_4Uf6fyQx3DAo9VAZy7Dn8Df0nvqV5-Ka2jgGG9AcQKy2E_X_8g7eEHY2qza4nc9V0-JHas5rvZggwkBbYhaB5GlzkSWQpwes8j_IpgdiiFHpX5zlw',
   'Content-Type' = 'application/json'
 )
 
@@ -36,7 +36,7 @@ url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente de produção
 
 token_prod = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImlzcyI6Imh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQwMGQ1N2U4NTVjODRjMTkxNGE3NzRkIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODcyNjY2MTMsImV4cCI6MTY4OTg1ODYxMywiYXpwIjoibVNLWnFINUtxMVdvY3hKY2xuSVVSYlZJS1VXUmpvSnoiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.WQBciou31q-TJsaHdCKhaD0b9hLBjI9rGD0zjUxiLDr4GitCkfmAw-Ks_CGQTUMcji5MLMs1KcCSgsXM2DHwDh-Jp_rLNoXdynvUvvxlxJdgFXe9M9Kt4tJtByTvuBuryoJeacjy2JcYTgBEoUX_BBSfpY73vFEfrud4naIOMDU8VFfLElVi4lcvINH_z-rU0vnttZEXO7vvEvYBJ289B2HdpdebRPg6yWvTRroEC8flRm4adwVQXSGkpd4lWT6sVJ_IUSp9cBPZa1DY1USBTXAoU7sUuaiuLGrbt35vxZNMOQkw3_cliRChaaIzx1dmFf1vLgx9DIMZ_o0pfXME6g',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNFZGl0b3IiLCJpczRpIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJiZG1nIl19LCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMzRjNDI0YTE4ZjM3MDA2OGI3MTFkOSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4MTI3NjUyLCJleHAiOjE2OTA3MTk2NTIsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.Zv9TGaJLsKwQSa-h0HUxGRfN75i77QD_fpUpsaZTZYWpVOt2aaV4hZGD67tTij3WPcfRZh6OMHN-d6LHyo5l_a-QrMTz4tQXd_vE7_xOT9aQ0XNxQfGmasCc0l7c_9YXj6V6vswnIifLc-SRRVEIFuHuIarOxUANRdLNpakofn1zjUL-LlTe8AefkZ_SQa26LtAHPoACv3OfN21mwYm_Ni_YStsjm8Tahu3fmfKzMfIR7_AS2El_b3OCTV7HNaP9J05jIj_7umgzoK-SoJaEEVFLv5Iy3dUGSf2Adq0bD_T5dPyA6PsnLihfHAtUFEB37sVmnPXXi4CXxgCCR_w0eA',
   'Content-Type' = 'application/json'
 )
 
@@ -72,13 +72,19 @@ metadados <- readxl::read_excel(paste0(user,
                                        'metadados_migração.xlsx'),
                                 skip = 1) %>% janitor::clean_names()
 
+# problem_units <- readxl::read_excel("unidade_teste.xlsx") %>% 
+#                  rename(sids = serie) %>% 
+#                  mutate(indicador = str_sub(sids, start = 1, end = 9)) 
+
 metadados_filt <- metadados %>% 
   #Limpa os indicadores que não serão editados
   filter(descontinuada == 'FALSE') %>% 
   filter(is.na(nao_migrar)) %>% 
   filter(str_detect(grupo_4macro, c('Geral'))) %>% 
   #filter(in_fs) %>% 
-  filter(crawler == 'fgv') %>% 
+  filter(indicator_code %in% c("MXBOP0028")) %>% 
+  #filter(crawler != "petrobras") %>% 
+  #filter(crawler %in% c("vli_acucar")) %>% 
   pluck('indicator_code')
 
 # Unidade ----------------------------------------------------------------------
@@ -88,6 +94,7 @@ depara_unidade <- readxl::read_excel(paste0(user, path,
                                      sheet = 'depara unidade medida')
 
 # Chamando a função GET FS-series ----------------------------------------------
+# Função está no script modify_series 
 
 sids_in_fs = get_sids(url = url_to_use,
                       token = token_to_use,

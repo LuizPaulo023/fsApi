@@ -1,6 +1,8 @@
 library(tidyverse)
 library(httr)
 
+rm(list = ls())
+
 # Definindo parâmetros do usuário - dev  ----------------------------------------------------------
 
 token_dev = c(
@@ -13,7 +15,7 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJpc3MiOiJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2Mjk4ZjllMzhhZTVjZTAwNjkwNzA2MDIiLCJhdWQiOlsiNGNhc3RodWIiLCJodHRwczovL2hvbW9sb2dhdGlvbi00aW50ZWxsaWdlbmNlLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODcyNjQyOTEsImV4cCI6MTY4NzM1MDY5MSwiYXpwIjoiS1FtZXZ1d0lRbzVZd0tGb29HQ1VyVWZzRVVpOHlLMzQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.mibe5KLPVcUwXD1Uyq0YOswjXMj1eC6-kiivr7kEXEmSKNPC3Jb8bfUy6JZKy1eAsybzdgEgyqzF89N7cryIxa5elt-0KWc6JxmlBocAZaR-BD0IgB39N15s0UhFSQpF36_dNktBdSeYss_YVUnnzsaM0eWhd6dkItN0ug9wFQ3JIRGJNPl-F0EsKyxJdeOSDc4qhCzU4WOObu6py-hWYbucHyQmu01T9-vZRc5RTFHCwDqx33m28ig-JJJJyl_gutd2ZZD3pkTZPsQjdf8hewIQ8OtR3mM4zawqc8YKy3YafdGJ6dV14unU16lp_QTC8iU0GLo9JuCUy0lg8RsDqA',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY4NzUyMjQ3MywiZXhwIjoxNjg3NjA4ODczLCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.MJoZDoa9PpKXfq1TQKr09SFEbKeuV7AjTeeJ-ypOcRgMgh-LqsDRjIIhtv8KcHbv_ba2ognTrEnGYYtm02UhbTmdfU1wVr6EzMHLF4Hm0veZ1CMzi6S5cnOU_u8kOlEqRWiSM_YhF4_vfu0zc-sM8wVSZNpHt41x3J3RBL8uirG77b6Jh4Ac2GMEHbrrcIcPLAt5e8naILmbgIbl3czOTokJFU26nLKA0eBL_iPpRB1S_qvyQY4ZlkTPB3Ryb-1QzO8NX2H9pOjMxOhBvia-PyUzBNczG-1R3mWajOeO3EEtXpQ-ImTdaAMlthJRHCBpiJ8o7k66DfRUQS00IVnDaQ',
   'Content-Type' = 'application/json'
 )
 
@@ -22,7 +24,7 @@ url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente de produção
 
 token_prod = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImlzcyI6Imh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQwMGQ1N2U4NTVjODRjMTkxNGE3NzRkIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODcxOTkyNjgsImV4cCI6MTY4OTc5MTI2OCwiYXpwIjoibVNLWnFINUtxMVdvY3hKY2xuSVVSYlZJS1VXUmpvSnoiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOnByb2plY3RzIiwiZWRpdDphY2Nlc3MtZ3JvdXBzIiwiZWRpdDppbmRpY2F0b3JzIiwiZWRpdDpteS1ncm91cHMiLCJlZGl0Om9ic2VydmF0aW9ucyIsImVkaXQ6cHJlZGVmaW5lZC1ncm91cHMiLCJlZGl0OnByb2plY3Rpb25zIiwiZWRpdDpzZXJpZXMiLCJyZWFkOmFjY2Vzcy1ncm91cHMiLCJyZWFkOmRvbWFpbnMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.K3oLOlQSqtpyt5o5HSQTZV9uPobhH1MRK_6xTdj4e1KwfJ8kQZaJQFe6pbKsxGbdnj1I1t8ed8YbUWM_oTK0mafWHvbzyP5Lmr4DbH_2tqwQb7BoLvmR8Wx_Soa2pZbERsdLHsyMyOqsibCuusn9PTMXo7Utz-k3w--O51aSb0RQxHlSsLrFE1mSSwR9Q4aGgKFuXJJVLwjUJKqcFCDAOZkFnfurbrWXYMXkg5GsfitgtzntVuaHXgs76q8jzzxpTg8Kx_4e34uikiGMKtQyGJifqsKVR1sLEfoM5PePDUq2ttkLSNSpqL-U1u4Q1cifQ_0Li_M5WWI-lcfLK9OtVg',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNFZGl0b3IiLCJpczRpIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJiZG1nIl19LCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMzRjNDI0YTE4ZjM3MDA2OGI3MTFkOSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4MTI3NjUyLCJleHAiOjE2OTA3MTk2NTIsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.Zv9TGaJLsKwQSa-h0HUxGRfN75i77QD_fpUpsaZTZYWpVOt2aaV4hZGD67tTij3WPcfRZh6OMHN-d6LHyo5l_a-QrMTz4tQXd_vE7_xOT9aQ0XNxQfGmasCc0l7c_9YXj6V6vswnIifLc-SRRVEIFuHuIarOxUANRdLNpakofn1zjUL-LlTe8AefkZ_SQa26LtAHPoACv3OfN21mwYm_Ni_YStsjm8Tahu3fmfKzMfIR7_AS2El_b3OCTV7HNaP9J05jIj_7umgzoK-SoJaEEVFLv5Iy3dUGSf2Adq0bD_T5dPyA6PsnLihfHAtUFEB37sVmnPXXi4CXxgCCR_w0eA',
   'Content-Type' = 'application/json'
 )
 
@@ -30,7 +32,7 @@ url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
 
 # Definindo o ambiente ---------------------------------------------------------
 
-ambiente = 'stg' #\ opções: dev, stg, prod
+ambiente = 'prod' #\ opções: dev, stg, prod
 
 # Configurando a url e token de acordo com o ambiente escolhido
 
@@ -51,10 +53,12 @@ if(ambiente == 'dev') {
   
 }
 
-probls <- readRDS('envio_sids.rds')
+#probls <- readRDS('envio_sids.rds')
 # Novas Aberturas ---------------------------------------------------------------------------------------
+user = base::getwd() %>%
+       stringr::str_extract("^((?:[^/]*/){3})") %>% print()
 
-user <- 'C:/Users/GabrielBelle/'
+# user <- 'C:/Users/GabrielBelle/'
 path <- '4intelligence/Feature Store - Documentos/DRE/Documentação/migracao/'
 
 grupo_transf <- readxl::read_excel(paste0(user, path,
@@ -84,9 +88,11 @@ regioes_depara <- tibble(
           AP2, TO2, MA2, PI2, CE2, RN2, PB2, PE2, AL2, SE2, BA2,
           MG2, ES2, RJ2, SP2, PR2, SC2, RS2, MS2, MT2, GO2, DF2')
 
-problem <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
-                              sheet = 'Planilha3') %>% 
-  janitor::clean_names()
+# problem <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
+#                               sheet = 'Planilha3') %>% 
+#   janitor::clean_names()
+# 
+# n = n_distinct(problem$sid) %>% print()
 
 metadados_filt <- metadados %>% 
   #Organiza as regioes pro script
@@ -99,21 +105,31 @@ metadados_filt <- metadados %>%
   #Organiza o grupo de transformação
   rename(grupo = grupo_transformacao) %>% 
   #Limpa os indicadores que não serão enviados
-  #filter(in_fs == F) %>% 
+  filter(in_fs == F) %>% 
   filter(descontinuada == 'FALSE') %>% 
   filter(is.na(nao_migrar)) %>% 
   filter(str_detect(grupo_4macro, c('Geral'))) %>% 
   #filter(grupo != 'Taxa - 3') %>% 
   #filter(grupo != 'Volume - EN - 2') %>% 
   #filter(crawler == 'sidra_pnad') %>% 
-  filter(indicator_code %in% problem$sid) %>% 
-  filter(!(indicator_code %in% c('BRPUB0075', 'CLGDP0051', 
-                                 'CLRTL0005', 'CLRTL0051')))
+  filter(indicator_code %in% c("MXPUB0072", 
+                               "MXBOP0028", 
+                               "MXPRC0126"))
+  #filter(crawler %in% c("banxico_api"))
+  
+
+metadados_filt
 
 sids_dev <- readxl::read_excel(paste0(user, path,
                                       'SERIES_TO_COLLECT_DEV.xlsx')) %>% 
   pluck('serie')
          
+#sids_dev %>% glimpse()
+# ausentes_fs <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
+#                               sheet = 'Planilha3') %>% 
+#   janitor::clean_names() %>% 
+#   mutate(serie = str_sub(a, start = 1, end = 16))%>% pluck("serie")
+
 #i = unique(metadados_filt[1,]$indicator_code)
 #154 = EUGDP0099
 
@@ -138,9 +154,16 @@ for (i in unique(metadados_filt$indicator_code)) {
   #   filter(sid %in% sids_to_send)
   
   # Mantem apenas os SIDs criados e validados em dev
-  sids_to_send_metadata <- sids_by_group %>% 
-    #filter(str_sub(sid, 13,13) == 'O')
-    filter(sid %in% sids_dev)
+  # sids_to_send_metadata <- sids_by_group %>%
+  # sids_to_send_metadata <- sids_by_group %>% 
+  # filter(str_sub(sid, 16,16) == 'L')
+  
+
+  
+  sids_to_send_metadata <- sids_by_group %>%
+       filter(sid %in% sids_dev)
+ 
+  
   
   print(paste0("Enviando as aberturas para o indicador: ", i))
 
@@ -152,7 +175,8 @@ for (i in unique(metadados_filt$indicator_code)) {
   } else {
     F
   }
-  
+
+
   if(!is.null(post_sid)) {
     problems = problems %>% 
       bind_rows(post_sid)
