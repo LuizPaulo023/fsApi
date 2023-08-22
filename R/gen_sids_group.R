@@ -26,7 +26,7 @@ gen_sids_by_group <- function(indicators_metadado,
   region_code <- indicators_metadado$regioes %>%
     unique()
 
-  indicator_code = indicators_metadado$codigo %>%
+  indicator_code = indicators_metadado$indicator_code %>%
     unique()
 
   if(region_code != '000') {

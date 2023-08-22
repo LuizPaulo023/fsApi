@@ -22,7 +22,7 @@ select_sids_to_del <- function(indicator,
   current_series_raw <- httr::VERB("GET",
                                    url = paste0(url, "api/v1/indicators/", indicator, "/series?limit=2000"),
                                    add_headers(token)) %>% content("parsed")
-  if(current_series_raw$total == 0) {
+  if(current_series_raw$total %>% is.null()) {
     return(character(0))
   }
   current_series <- tibble()
@@ -56,7 +56,8 @@ delete_series <- function(indicator,
                    sid),
       add_headers(token)
     )
-    
+    print(sid)
     cat(httr::content(delete_series, 'text'))
+    Sys.sleep(0.25)
   }
 }
