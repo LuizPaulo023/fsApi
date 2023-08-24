@@ -77,8 +77,14 @@ post.indicator = function(access_type = as.character(),
                             description_full_en, description_full_pt, country, sector, 
                             node_en, node_pt, proj_owner)
   
-  sends_indicators = httr::VERB("POST",
-                                url = paste0(url,"api/v1/indicators"),
+  if(type_send == 'POST') {
+    url_to_send <- paste0(url,"api/v1/indicators")
+  } else if (type_send == 'PUT') {
+    url_to_send <- paste0(url,"api/v1/indicators/", indicator)
+  }
+  
+  sends_indicators = httr::VERB(type_send,
+                                url = url_to_send,
                                 body = send_fs$body_json[1],
                                 httr::add_headers(token))
   
