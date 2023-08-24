@@ -77,7 +77,7 @@ metadados <- readxl::read_excel(paste0(user,
 
 sends_poc <- readxl::read_excel("poc_chatGPT_lote.xlsx", sheet = "verificado") %>% 
               dplyr::filter(sends == "ok") %>% 
-               janitor::clean_names()
+              janitor::clean_names()
 
 
 metadados <- dplyr::left_join(sends_poc, metadados, by = "indicator_code")
@@ -123,7 +123,7 @@ for (r in 1:nrow(metadados_filt)) {
   # Chamando a função modificação
   status <- post.indicator(access_type = "default",
                            access_group = "Geral",
-                           indicator_code = metadados_filt[r, 'indicator_code'][[1]],
+                           indicator = metadados_filt[r, 'indicator_code'][[1]],
                            name_en = metadados_filt[r, 'name_en_fs'][[1]],
                            name_pt = metadados_filt[r, 'name_pt_fs'][[1]],
                            short_en = metadados_filt[r, 'name_abv_en_fs'][[1]],
@@ -142,7 +142,7 @@ for (r in 1:nrow(metadados_filt)) {
                                                ",")[[1]],
                            type_send = 'PUT', #ou PUT
                            token = token_to_use,
-                           proj_owner = proj,
+                           proj_owner = '4intelligence',
                            url = url_to_use)
 }
 ########################################################
@@ -158,8 +158,6 @@ source_en = metadados_filt[r, 'fonte_fs_en'][[1]]
 source_pt = metadados_filt[r, 'fonte_fs_pt'][[1]]
 description_en = metadados_filt[r, 'en_us'][[1]]
 description_pt = metadados_filt[r, 'pt_br'][[1]]
-# description_en =  metadados_filt[r, 'description_en_fs'][[1]]
-# description_pt =  metadados_filt[r, 'description_pt_fs'][[1]]
 description_full_en = metadados_filt[r, 'link_metodologia_fs_en'][[1]]
 description_full_pt = metadados_filt[r, 'link_metodologia_fs_pt'][[1]]
 country = str_sub(metadados_filt[r, 'indicator_code'],1,2)[[1]]
@@ -168,6 +166,7 @@ node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
                     ",")[[1]]
 node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
                     ",")[[1]]
-proj_owner = proj
+type_send = 'PUT' #ou PUT
 token = token_to_use
+proj_owner = proj
 url = url_to_use

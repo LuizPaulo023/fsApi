@@ -39,14 +39,14 @@ body_indicator <- function(indicator = as.character(),
                           node_en = list(node_en),
                           node_pt = list(node_pt))
   
-  if(is.na(node_en)) {
+  if(any(is.na(node_en))) {
     return(300)
   }
   
   id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en[[1]], ", ")[[1]][1],
                                     token = token,
                                     url = url),
-                    node = input$node_en[[1]])
+                    node = str_trim(input$node_en[[1]]))
   
   if(id_nodes$id[1] == 500) {
     return(500)
@@ -121,7 +121,6 @@ body_indicator <- function(indicator = as.character(),
 }')
   
   send_fs = input %>%
-    dplyr::rowwise() %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
                                                        c("jesus" = access_type,
