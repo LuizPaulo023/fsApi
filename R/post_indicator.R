@@ -52,7 +52,7 @@
 
 post.indicator = function(access_type = as.character(),
                           access_group = as.character(),
-                          indicator_code = as.character(),
+                          indicator = as.character(),
                           name_en = as.character(),
                           name_pt = as.character(),
                           short_en = as.character(),
@@ -67,7 +67,7 @@ post.indicator = function(access_type = as.character(),
                           sector = as.character(),
                           node_en = as.character(),
                           node_pt = as.character(),
-                          type_send = 'POST', #ou PUT
+                          type_send, #ou PUT
                           token = token,
                           proj_owner,
                           url = url){
@@ -77,7 +77,7 @@ post.indicator = function(access_type = as.character(),
                             description_full_en, description_full_pt, country, sector, 
                             node_en, node_pt, proj_owner)
   
-  sends_indicators = httr::VERB(type_send,
+  sends_indicators = httr::VERB("POST",
                                 url = paste0(url,"api/v1/indicators"),
                                 body = send_fs$body_json[1],
                                 httr::add_headers(token))
