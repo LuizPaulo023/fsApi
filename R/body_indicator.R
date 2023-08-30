@@ -3,6 +3,7 @@
 #' @details A função é dependente das funções get_id e get_tree
 
 body_indicator <- function(indicator = as.character(),
+                           ranking = as.numeric(),
                            access_type = as.character(),
                            access_group = as.character(),
                            name_en = as.character(),
@@ -84,6 +85,7 @@ body_indicator <- function(indicator = as.character(),
   "access_group": "groups",
   "is_active": true,
   "projections": "aslas",
+  "ranking": posicao,
   "tree": [
     {
       "id": "id_one",
@@ -123,7 +125,8 @@ body_indicator <- function(indicator = as.character(),
   send_fs = input %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
-                                                       c("jesus" = access_type,
+                                                       c("posicao" = as.character(ranking),
+                                                         "jesus" = access_type,
                                                          "i_code" = indicator_code,
                                                          "aslas" = proj_owner,
                                                          "name_en" = name_en,
