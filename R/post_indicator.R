@@ -51,6 +51,7 @@
 #' @export
 
 post.indicator = function(access_type = as.character(),
+                          ranking = as.numeric(),
                           access_group = as.character(),
                           indicator = as.character(),
                           name_en = as.character(),
@@ -72,7 +73,7 @@ post.indicator = function(access_type = as.character(),
                           proj_owner,
                           url = url){
   
-  send_fs <- body_indicator(indicator, access_type, access_group, name_en, name_pt, 
+  send_fs <- body_indicator(indicator, ranking, access_type, access_group, name_en, name_pt, 
                             short_en, short_pt, source_en, source_pt, description_en, description_pt, 
                             description_full_en, description_full_pt, country, sector, 
                             node_en, node_pt, proj_owner)

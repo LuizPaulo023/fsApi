@@ -3,6 +3,7 @@
 #' @details A função é dependente das funções get_id e get_tree
 
 body_indicator <- function(indicator = as.character(),
+                           ranking = as.numeric(),
                            access_type = as.character(),
                            access_group = as.character(),
                            name_en = as.character(),
@@ -20,7 +21,7 @@ body_indicator <- function(indicator = as.character(),
                            node_en = as.character(),
                            node_pt = as.character(),
                            proj_owner) {
-  
+
   input <- tibble::tibble(access_type = access_type,
                           access_group = access_group,
                           indicator_code = indicator,
@@ -38,24 +39,24 @@ body_indicator <- function(indicator = as.character(),
                           sector = sector,
                           node_en = list(node_en),
                           node_pt = list(node_pt))
-  
+
   if(any(is.na(node_en))) {
     return(300)
   }
-  
+
   id_nodes = get.id(tree = get.tree(master_node = base::strsplit(input$node_en[[1]], ", ")[[1]][1],
                                     token = token,
                                     url = url),
                     node = str_trim(input$node_en[[1]]))
-  
+
   if(id_nodes$id[1] == 500) {
     return(500)
   }
-  
+
   id_nodes = tibble::tibble(node = id_nodes$node,
                             id = id_nodes$id,
                             node_pt = node_pt)
-  
+
   body = '{
  "access_type": "jesus",
   "indicator_code": "i_code",
@@ -84,7 +85,7 @@ body_indicator <- function(indicator = as.character(),
   "access_group": "groups",
   "is_active": true,
   "projections": "aslas",
-  "ranking": 1,
+  "ranking": posicao,
   "tree": [
     {
       "id": "id_one",
@@ -94,7 +95,7 @@ body_indicator <- function(indicator = as.character(),
         "pt-br": "name_one_tree_pt"
       }
     }';
-  
+
   adicional_body = ',
     {
       "id": "{a}",
@@ -104,27 +105,28 @@ body_indicator <- function(indicator = as.character(),
         "pt-br": "{c}"
       }
     }'
-  
+
   for (i in 2:nrow(id_nodes)) {
     #Primeiro node é substituido em outro passo
-    result <- adicional_body %>% 
+    result <- adicional_body %>%
       str_replace_all(c('\\{a\\}'= id_nodes[i,]$id,
                         '\\{b\\}'= id_nodes[i,]$node,
                         '\\{c\\}'= id_nodes[i,]$node_pt))
-    
-    body <- body %>% 
+
+    body <- body %>%
       paste0(result)
   }
   #Fecha o json
-  body <- body %>% 
+  body <- body %>%
     paste0('
   ]
 }')
-  
+
   send_fs = input %>%
     dplyr::mutate(body = body,
                   body_json = stringr::str_replace_all(body,
-                                                       c("jesus" = access_type,
+                                                       c("posicao" = as.character(ranking),
+                                                         "jesus" = access_type,
                                                          "i_code" = indicator_code,
                                                          "aslas" = proj_owner,
                                                          "name_en" = name_en,
@@ -145,9 +147,9 @@ body_indicator <- function(indicator = as.character(),
                                                          "node_one" = id_nodes[1,]$node,
                                                          "name_one_tree_en" = strsplit(input$node_en[[1]], ",")[[1]][1],
                                                          "name_one_tree_pt" = strsplit(input$node_pt[[1]], ",")[[1]][1]
-                                                       ))) %>% 
+                                                       ))) %>%
     dplyr::select(-body)
-  
+
   return(send_fs)
 }
 
