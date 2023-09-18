@@ -84,6 +84,7 @@ body_indicator <- function(indicator = as.character(),
   "access_group": "groups",
   "is_active": true,
   "projections": "aslas",
+  "ranking": 1,
   "tree": [
     {
       "id": "id_one",
