@@ -18,8 +18,6 @@ token_stg = c(
 )
 
 url_stg = "https://apis.4intelligence.ai/api-feature-store-stg/"
-  # 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
-
 
 # Definindo parâmetros do usuário na API - ambiente de produção
 
@@ -58,60 +56,39 @@ if(ambiente == 'dev') {
 user = base::getwd() %>%
        stringr::str_extract("^((?:[^/]*/){3})") %>% print()
 
-path <- '4intelligence/Feature Store - Documentos/DRE/Documentação/migracao/'
+path <- '4intelligence/Feature Store - Documentos/DRE/curadoria/'
 
 grupo_transf <- readxl::read_excel(paste0(user, path,
-                                          '/diagrama_grupo_transfs.xlsx'),
+                                          'diagrama_grupo_transfs.xlsx'),
                                    sheet = 'depara') %>%
   pivot_longer(cols = everything(), names_to = 'grupo', values_to = 'transfs') %>%
   arrange(grupo) %>%
   filter(!is.na(transfs))
 
 depara_unidade <- readxl::read_excel(paste0(user, path,
-                                            '/diagrama_grupo_transfs.xlsx'),
+                                            'diagrama_grupo_transfs.xlsx'),
                                      sheet = 'depara unidade medida')
 
 regioes_depara <- tibble(
   max = 'NO1, NE1, SE1, SU1, CO1',
   ufx = 'RO2, AC2, AM2, RR2, PA2, AP2, TO2, MA2, PI2, CE2, RN2, PB2, PE2, AL2, SE2, BA2, MG2, ES2, RJ2, SP2, PR2, SC2, RS2, MS2, MT2, GO2, DF2')
 
-# Migração ----------------------------------------------------------------
+novos_indicadores <- readxl::read_excel(paste0(user, path,
+                                               'novos_indicadores.xlsx'))
 
-# metadados <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
-#                                 skip = 1) %>%
-#   janitor::clean_names()
-
-metadados <- readxl::read_excel("send_fs.xlsx") %>% 
-              janitor::clean_names()
+metadados_filt <- novos_indicadores %>%
+  mutate(regioes = str_replace_all(regioes, " ", ", "))
 
 
-# metadados_filt <- metadados %>%
-#   mutate(name_abv_pt_fs = iconv(name_abv_pt_fs,
-#                                 from="UTF-8",to="ASCII//TRANSLIT"),
-#          descontinuada = ifelse(is.na(descontinuada), 'FALSE', descontinuada)
-#   ) %>%
-#   #Organiza as regioes pro script
-#   rename(regioes = regioes_4macro) %>%
-#   mutate(regioes = str_replace_all(regioes, ' ', ','),
-#          regioes = str_replace_all(regioes, 'MAX', regioes_depara$max),
-#          regioes = str_replace_all(regioes, 'UFX', regioes_depara$ufx),
-#          across(where(is.character), ~gsub('\r','', .x)),
-#          across(where(is.character), ~gsub('\n','', .x))) %>%
-#   #Organiza o grupo de transformação
-#   rename(grupo = grupo_transformacao) %>%
-#   #Limpa os indicadores que não serão enviados
-#   #filter(grupo != 'Volume - EN - 2') %>%
-#   filter(crawler == 'sidra_pnad')
-#   #filter(str_detect(name_abv_pt_fs, 'PIB 4i'))
-metadados_filt <- metadados
 # Loop de envio -----------------------------------------------------------
 
 problems = tibble(sid = c(), status = c())
 sids_to_del <- tibble(ind = c(), sids = c())
 
 for (i in unique(metadados_filt$indicator_code)) {
+
   df_filt <- metadados_filt %>%
-    filter(indicator_code == "CNFXR0067")
+    filter(indicator_code == i)
 
   #Gera todos os SIDs a partir do Subgrupo
   sids_by_group <- gen_sids_by_group(indicators_metadado = df_filt,
@@ -120,28 +97,9 @@ for (i in unique(metadados_filt$indicator_code)) {
 
   #Filtros específicos em cima do grupo de transf. gerado
 
-  # sids_to_send_metadata <- sids_by_group  %>%
-  #   rowwise() %>%
-  #   filter(
-  #     (!(str_sub(sid, 10, 12) %in% c(str_split(regioes_depara$ufx, ', ')[[1]],
-  #                                   str_split(regioes_depara$max, ', ')[[1]], '000')) &
-  #       str_sub(sid, 13, 13) == 'R') |
-  #     (str_sub(sid, 13, 13) %in% c('R', 'O') &
-  #        str_sub(sid, 10,12) %in% c(str_split(regioes_depara$ufx, ', ')[[1]],
-  #                                    str_split(regioes_depara$max, ', ')[[1]], '000'))
-  #   )
-
   sids_to_send_metadata <- sids_by_group %>%
-    filter(str_sub(sid, 13, 13) != 'S') %>% 
+    filter(str_sub(sid, 13, 13) != 'S') %>%
     filter(str_sub(sid, 13, 13) != 'R')
-
-  # sids_to_send_metadata <- sids_by_group %>%
-  #   filter(str_sub(sid, 13,13) == 'O') %>%
-  #   rowwise() %>%
-  #   filter((str_sub(sid, 10,12) %in% str_split(regioes_depara$ufx, ', ')[[1]] &
-  #            str_sub(sid, 16,16) == 'L') | !(str_sub(sid, 10,12) %in%
-  #                                              str_split(regioes_depara$ufx, ', ')[[1]])) %>%
-  #   ungroup()
 
   print(paste0("Enviando as aberturas para o indicador: ", i))
 
@@ -152,17 +110,12 @@ for (i in unique(metadados_filt$indicator_code)) {
                           url = url_to_use)
   } else {
     F
-  }}
-  problems = problems %>%
-     bind_rows(post_sid)
+  }
 
   del_sids <- select_sids_to_del(indicator = i,
                                  new_sids = sids_to_send_metadata,
                                  token = token_to_use,
                                  url = url_to_use)
-
-  sids_to_del <- sids_to_del %>%
-    add_row(tibble(ind = i, sids = del_sids))
 
   if(!identical(del_sids, character(0))) {
     print(paste0("Deletando aberturas indesejadas do indicador: ", i))
@@ -173,8 +126,6 @@ for (i in unique(metadados_filt$indicator_code)) {
   } else {
     print(paste0("Sem aberturas para excluir para o indicador ", i))
   }
-
-  Sys.sleep(1.0)
 }
 
 
