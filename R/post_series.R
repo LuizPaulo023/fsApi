@@ -102,7 +102,8 @@ post_series <- function(indicators_metadado, token, url){
                                                                "step_cinco" = un_pt,
                                                                "step_seis" = un_en)),
                   url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
-  
+  # getwd()
+  # writexl::write_xlsx(send_fs, "tentativa_envio.xlsx")
   result = tibble(sid = c(), status = c())
   
   for (series in unique(send_fs$sid)) {
@@ -114,16 +115,18 @@ post_series <- function(indicators_metadado, token, url){
                              body = sending_sid$body_json,
                              httr::add_headers(token))
     
-    if(httr::content(update_sids, 'text') != "{\"message\":\"The resource already exists.\"}") {
-      result = result %>% 
-        add_row(sid = series, status = update_sids$status_code)
-    }
+    cat(httr::content(update_sids, 'text'))
+    
+    # if(httr::content(update_sids, 'text') != "{\"message\":\"The resource already exists.\"}") {
+    #   # result = result %>% 
+    #   #   add_row(sid = series, status = update_sids$status_code)
+    # }
   }
-  if(nrow(result) != 0) {
-    return(result)
-  } else{
-    return(NULL)
-  }
+  # if(nrow(result) != 0) {
+  #   return(result)
+  # } else{
+  #   return(NULL)
+  # }
   
 }  
 

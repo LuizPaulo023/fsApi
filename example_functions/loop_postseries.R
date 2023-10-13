@@ -13,16 +13,18 @@ url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/
 # Definindo parâmetros do usuário na API - ambiente Stg
 
 token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL25hbWUiOiJnLmJlbGxlQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaXNzIjoiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjI5OGY5ZTM4YWU1Y2UwMDY5MDcwNjAyIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjkyMTA5MzMzLCJleHAiOjE2OTIxOTU3MzMsImF6cCI6IktRbWV2dXdJUW81WXdLRm9vR0NVclVmc0VVaTh5SzM0Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.D1_ivPGiVQX_SX1OF1P5JNC54UqoTuD7W6-GT40RX1XgsrMJrzpZLbVluZseVyKC2mHPParBAx99ttda6PSBmBaelbKYOM2-VfoxCpI6hk39bZGY9kFs8cpG5z3h-OxGf8Ln16quCZEW249VrcHoeylP2IggSLxf-n7kc-5l2KGflkHBVwsawNKdsqbqfHzvLUz4GVh748tgP81uPFYK44j-NRRR-fyL4ywmtU79d7w1c0LhQxU6PQNPzAT343R7V26IvWTvVh8AGZLLVOs_qlO-aRyqDUs1EfrpKRFYEJqOu2lqLHFw_m7JJoBXhVhKcvZkdlrlJAZMsRekDJqNgQ',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NzIwMDI1OSwiZXhwIjoxNjk3Mjg2NjU5LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.mv_wfggVCjwfGn4ebcsing4tDE8j6se1dlzRkR5zCoLye1LaX7rniUmkMDIMVavpssdss67zp37HuQRFjgGAFl-qlPVgXsQVP8dgJbV2sb7hMwv_7VdN-Gu07rgCWRmL_0YWqYbgUihRaATjbeTJSSBuUOHsUumaDFo8bjCOK-WAMQ-kUevXECc6RjgIQbmUkFK6MUvNjyJ841wJ4tM8jkRq8SWb9f8xyGo72FOhgJ-6zCQe-mS8K9ZfNkjGCjjqaPXwvfqlq2AP0BXOdURoA361gkw69OBRL5SUC2YvpUba2NNJfGK1Gk869x0jVbkNIQG1p2zJTr3DhkqHXYfujg',
   'Content-Type' = 'application/json'
 )
 
-url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
+url_stg = "https://apis.4intelligence.ai/api-feature-store-stg/"
+  # 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
+
 
 # Definindo parâmetros do usuário na API - ambiente de produção
 
 token_prod = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImcuYmVsbGVANGludGVsbGlnZW5jZS5jb20uYnIiLCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MDBkNTdlODU1Yzg0YzE5MTRhNzc0ZCIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjkyMzA0ODMzLCJleHAiOjE2OTQ4OTY4MzMsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.G5czyFdh_9fDH0lmYXZLS-p4wRY8o7LVZzHcR4uSeupMzzfXZw-2vqfNYvSkZbMl17E1P7Bn6vIHPQVHEeidAxrMuxeQB14os1cVbxwhl0Ii8RhYZAob2HVcRFOny_dMhlzt4oP8PDWjZ7nDGuU6qoOQjbU3kz3GHm5xtFObt6n6i5ecId-SNM5OBIdxTErP61e1PvQ3n2MY0Li-IrvdonmP10UXONkbtvI77hAIlSnlqWVWPg4tHS3kpXEi7EzRFPOiGuXaLqvfypZSkohV_nySlkMyYr-4ZcUf3hvtBf7eRji3Wx6tO5jppADZ6zhnQYD0mQBBjlmoVEA8vZaWiA',
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5Njk0Mjk5OCwiZXhwIjoxNjk3MDI5Mzk4LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.TvOZplbw9jc9tSMF7wm53X5V9WJxPC8Dic6by_Con2f0qDyrjnvYF5O28F9AcYmRM8FU08saAfxBxmIYCpErSjzifj7oOQShx6KIkrteh0Qd5uPNt_s4LQRZ4QneckZi-OECr0W-kQQMTSWG4LWFzxSKShyUZnF42WM9doRsWy3ll5_Qb2Pgt10nwjovtusiLvCWOP23-8AFoVWn-hNbu1-CTnAw0Ssy-qkJTnoPyvhra-_fozbTCEFcM50PNiaeDwNFyc7Pvt-9v4dUrMb9dfCCHI09bm13evbRr-PfT4I-El0Opr5ORS-As0Vu8pFsPYcPU10BJrQgEgTxt5nhEw',
   'Content-Type' = 'application/json'
 )
 
@@ -75,29 +77,33 @@ regioes_depara <- tibble(
 
 # Migração ----------------------------------------------------------------
 
-metadados <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
-                                skip = 1) %>%
-  janitor::clean_names()
+# metadados <- readxl::read_excel(paste0(user, path, 'metadados_migração.xlsx'),
+#                                 skip = 1) %>%
+#   janitor::clean_names()
 
-metadados_filt <- metadados %>%
-  mutate(name_abv_pt_fs = iconv(name_abv_pt_fs,
-                                from="UTF-8",to="ASCII//TRANSLIT"),
-         descontinuada = ifelse(is.na(descontinuada), 'FALSE', descontinuada)
-  ) %>%
-  #Organiza as regioes pro script
-  rename(regioes = regioes_4macro) %>%
-  mutate(regioes = str_replace_all(regioes, ' ', ','),
-         regioes = str_replace_all(regioes, 'MAX', regioes_depara$max),
-         regioes = str_replace_all(regioes, 'UFX', regioes_depara$ufx),
-         across(where(is.character), ~gsub('\r','', .x)),
-         across(where(is.character), ~gsub('\n','', .x))) %>%
-  #Organiza o grupo de transformação
-  rename(grupo = grupo_transformacao) %>%
-  #Limpa os indicadores que não serão enviados
-  #filter(grupo != 'Volume - EN - 2') %>%
-  filter(crawler == 'sidra_pnad')
-  #filter(str_detect(name_abv_pt_fs, 'PIB 4i'))
+metadados <- readxl::read_excel("send_fs.xlsx") %>% 
+              janitor::clean_names()
 
+
+# metadados_filt <- metadados %>%
+#   mutate(name_abv_pt_fs = iconv(name_abv_pt_fs,
+#                                 from="UTF-8",to="ASCII//TRANSLIT"),
+#          descontinuada = ifelse(is.na(descontinuada), 'FALSE', descontinuada)
+#   ) %>%
+#   #Organiza as regioes pro script
+#   rename(regioes = regioes_4macro) %>%
+#   mutate(regioes = str_replace_all(regioes, ' ', ','),
+#          regioes = str_replace_all(regioes, 'MAX', regioes_depara$max),
+#          regioes = str_replace_all(regioes, 'UFX', regioes_depara$ufx),
+#          across(where(is.character), ~gsub('\r','', .x)),
+#          across(where(is.character), ~gsub('\n','', .x))) %>%
+#   #Organiza o grupo de transformação
+#   rename(grupo = grupo_transformacao) %>%
+#   #Limpa os indicadores que não serão enviados
+#   #filter(grupo != 'Volume - EN - 2') %>%
+#   filter(crawler == 'sidra_pnad')
+#   #filter(str_detect(name_abv_pt_fs, 'PIB 4i'))
+metadados_filt <- metadados
 # Loop de envio -----------------------------------------------------------
 
 problems = tibble(sid = c(), status = c())
@@ -105,7 +111,7 @@ sids_to_del <- tibble(ind = c(), sids = c())
 
 for (i in unique(metadados_filt$indicator_code)) {
   df_filt <- metadados_filt %>%
-    filter(indicator_code == i)
+    filter(indicator_code == "CNFXR0067")
 
   #Gera todos os SIDs a partir do Subgrupo
   sids_by_group <- gen_sids_by_group(indicators_metadado = df_filt,
@@ -125,8 +131,9 @@ for (i in unique(metadados_filt$indicator_code)) {
   #                                    str_split(regioes_depara$max, ', ')[[1]], '000'))
   #   )
 
-  # sids_to_send_metadata <- sids_by_group %>%
-  #   filter(str_sub(sid, 13, 13) %in% c('O'))
+  sids_to_send_metadata <- sids_by_group %>%
+    filter(str_sub(sid, 13, 13) != 'S') %>% 
+    filter(str_sub(sid, 13, 13) != 'R')
 
   # sids_to_send_metadata <- sids_by_group %>%
   #   filter(str_sub(sid, 13,13) == 'O') %>%
@@ -145,7 +152,7 @@ for (i in unique(metadados_filt$indicator_code)) {
                           url = url_to_use)
   } else {
     F
-  }
+  }}
   problems = problems %>%
      bind_rows(post_sid)
 
