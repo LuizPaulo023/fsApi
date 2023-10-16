@@ -72,29 +72,23 @@ post.indicator = function(access_type = as.character(),
                           token = token,
                           proj_owner,
                           url = url){
-  
-  send_fs <- body_indicator(indicator, ranking, access_type, access_group, name_en, name_pt, 
-                            short_en, short_pt, source_en, source_pt, description_en, description_pt, 
-                            description_full_en, description_full_pt, country, sector, 
+
+  send_fs <- body_indicator(indicator, ranking, access_type, access_group, name_en, name_pt,
+                            short_en, short_pt, source_en, source_pt, description_en, description_pt,
+                            description_full_en, description_full_pt, country, sector,
                             node_en, node_pt, proj_owner)
-  
   if(type_send == 'POST') {
     url_to_send <- paste0(url,"api/v1/indicators")
   } else if (type_send == 'PUT') {
     url_to_send <- paste0(url,"api/v1/indicators/", indicator)
   }
-  
+
   sends_indicators = httr::VERB(type_send,
                                 url = url_to_send,
                                 body = send_fs$body_json[1],
                                 httr::add_headers(token))
-  
-  if(httr::content(sends_indicators, 'text') != "{\"message\":\"The resource already exists.\"}") {
-    print(httr::content(sends_indicators, 'text'))
-    return(httr::content(sends_indicators)$message)
-  } else {
-    return(httr::content(sends_indicators)$message)
-  }
+
+  return(httr::content(sends_indicators)$message)
 }
 
 
