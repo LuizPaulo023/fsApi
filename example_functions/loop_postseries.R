@@ -1,62 +1,35 @@
-library(tidyverse)
-library(httr)
+#' @title Envio de séries/aberturas FS
 
-# Definindo parâmetros do usuário ----------------------------------------------------------
+base::rm(list = ls())
+graphics.off()
 
-token_dev = c(
-  'Authorization' = 'Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-  'Content-Type' = 'application/json'
-)
+# Dependências =================================================================
+# library(pacman)
 
-url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/'
+pacman::p_load(tidyverse, httr)
 
-# Definindo parâmetros do usuário na API - ambiente Stg
-
-token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NzIwMDI1OSwiZXhwIjoxNjk3Mjg2NjU5LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.mv_wfggVCjwfGn4ebcsing4tDE8j6se1dlzRkR5zCoLye1LaX7rniUmkMDIMVavpssdss67zp37HuQRFjgGAFl-qlPVgXsQVP8dgJbV2sb7hMwv_7VdN-Gu07rgCWRmL_0YWqYbgUihRaATjbeTJSSBuUOHsUumaDFo8bjCOK-WAMQ-kUevXECc6RjgIQbmUkFK6MUvNjyJ841wJ4tM8jkRq8SWb9f8xyGo72FOhgJ-6zCQe-mS8K9ZfNkjGCjjqaPXwvfqlq2AP0BXOdURoA361gkw69OBRL5SUC2YvpUba2NNJfGK1Gk869x0jVbkNIQG1p2zJTr3DhkqHXYfujg',
-  'Content-Type' = 'application/json'
-)
-
-url_stg = "https://apis.4intelligence.ai/api-feature-store-stg/"
-
-# Definindo parâmetros do usuário na API - ambiente de produção
-
-token_prod = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5Njk0Mjk5OCwiZXhwIjoxNjk3MDI5Mzk4LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.TvOZplbw9jc9tSMF7wm53X5V9WJxPC8Dic6by_Con2f0qDyrjnvYF5O28F9AcYmRM8FU08saAfxBxmIYCpErSjzifj7oOQShx6KIkrteh0Qd5uPNt_s4LQRZ4QneckZi-OECr0W-kQQMTSWG4LWFzxSKShyUZnF42WM9doRsWy3ll5_Qb2Pgt10nwjovtusiLvCWOP23-8AFoVWn-hNbu1-CTnAw0Ssy-qkJTnoPyvhra-_fozbTCEFcM50PNiaeDwNFyc7Pvt-9v4dUrMb9dfCCHI09bm13evbRr-PfT4I-El0Opr5ORS-As0Vu8pFsPYcPU10BJrQgEgTxt5nhEw',
-  'Content-Type' = 'application/json'
-)
-
-url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
-
-# Definindo o ambiente ---------------------------------------------------------
-
-ambiente = 'stg' #\ opções: dev, stg, prod
-
-# Configurando a url e token de acordo com o ambiente escolhido
-
-if(ambiente == 'dev') {
-
-  token_to_use = token_dev
-  url_to_use = url_dev
-
-} else if (ambiente == 'stg') {
-
-  token_to_use = token_stg
-  url_to_use = url_stg
-
-} else if (ambiente == 'prod') {
-
-  token_to_use = token_prod
-  url_to_use = url_prod
-
-}
-
-# Novas Aberturas ---------------------------------------------------------------------------------------
+# Configurações de ambiente do usuário 
 
 user = base::getwd() %>%
        stringr::str_extract("^((?:[^/]*/){3})") %>% print()
 
 path <- '4intelligence/Feature Store - Documentos/DRE/curadoria/'
+setwd(paste0(user,path))
+
+# Definindo parâmetros do usuário ----------------------------------------------------------
+# getwd()
+source("urls.R")
+
+token_to_use = c(
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NzU0NzExOSwiZXhwIjoxNjk3NjMzNTE5LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.FvbC3DRhMrKdFUpeqAdET75UCg0aaJJF3oZUcp4PiXpE48N-po5DYbdLBL_JP5RPNaVqVSebXXf7cPFlAQnqi7CdMLjbNWrYAMJ6k4iglkoFvESwkHYgewQNR9CiTF1WDBPAW_hj6YsT8s-rC1p3coeSEN6vJRfPh7HgGgI8QbRmKoQHMvo0Gi8P-RRGgOQMVHLPtgcE8cUQIa-kIACWg-6XXD5WeDD74ngUkCMy_GS-1iPuCY8pX88W7zuHUEpemgqrV2MHtIVHKoGeLztqJAs8nS-rids6EN3FwEw8GOqGyjgnaNFeKV8Wf8PzIKMlmi02OV4zNECg0CYxeKIvcA',
+  'Content-Type' = 'application/json'
+)
+
+# Escolha o ambiente prod ou stg #\ opções: stg, prod
+
+url_to_use = urls(environment = "stg")
+
+# Novas Aberturas ---------------------------------------------------------------------------------------
 
 grupo_transf <- readxl::read_excel(paste0(user, path,
                                           'diagrama_grupo_transfs.xlsx'),
