@@ -1,91 +1,42 @@
 #' @title Exemplo de loop da função de update - Series
 #' @author Luiz Paulo T.
 
-# Dependências/Pkgs
+base::rm(list = ls())
+graphics.off()
 
-library(tidyverse)
-library(stringr)
-library(stringi)
-library(httr)
+# Dependências =================================================================
+# library(pacman)
 
-# Configurando o caminho/diretório do usuário
+pacman::p_load(tidyverse, httr, stringr, stringi)
+
+# Configurações de ambiente do usuário 
 
 user = base::getwd() %>%
        stringr::str_extract("^((?:[^/]*/){3})") %>% print()
 
-path <- '4intelligence/Feature Store - Documentos/DRE/Documentação/migracao/'
+path <- '4intelligence/Feature Store - Documentos/DRE/curadoria/'
+setwd(paste0(user,path))
 
-# Definindo parâmetros do usuário na API - ambiente dev
+# Definindo parâmetros do usuário ----------------------------------------------------------
+# getwd()
+source("urls.R")
 
-token_dev = c(
-  'Authorization' = 'Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+token_to_use = c(
+  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NzU0NzExOSwiZXhwIjoxNjk3NjMzNTE5LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.FvbC3DRhMrKdFUpeqAdET75UCg0aaJJF3oZUcp4PiXpE48N-po5DYbdLBL_JP5RPNaVqVSebXXf7cPFlAQnqi7CdMLjbNWrYAMJ6k4iglkoFvESwkHYgewQNR9CiTF1WDBPAW_hj6YsT8s-rC1p3coeSEN6vJRfPh7HgGgI8QbRmKoQHMvo0Gi8P-RRGgOQMVHLPtgcE8cUQIa-kIACWg-6XXD5WeDD74ngUkCMy_GS-1iPuCY8pX88W7zuHUEpemgqrV2MHtIVHKoGeLztqJAs8nS-rids6EN3FwEw8GOqGyjgnaNFeKV8Wf8PzIKMlmi02OV4zNECg0CYxeKIvcA',
   'Content-Type' = 'application/json'
 )
 
-url_dev = 'https://run-4i-dev-4casthub-featurestore-api-mhiml2nixa-ue.a.run.app/'
+# Escolha o ambiente prod ou stg #\ opções: stg, prod
 
-# Definindo parâmetros do usuário na API - ambiente Stg
+url_to_use = urls(environment = "stg")
 
-token_stg = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNFZGl0b3IiLCJpczRpIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJiZG1nIl19LCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMzRjNDI0YTE4ZjM3MDA2OGI3MTFkOSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg3ODY3Mzk4LCJleHAiOjE2OTA0NTkzOTgsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.d--jkPpKhwgOtGWOtnpOdYGJsYtjvnl19KBB0ueYCXWqcOYva64kUWXhPylyZPDe5wvOVsv8rsNHUzVNIXOszDNVmdTPYFaFVFSR9OZFxlICF4zCXmkv2IwmeZHXQwmkxzAvMc_IK439wqhOesAxaFdL53qVL5bfw58E1CXBaWyVaCxWSVAZX8VHsmYu8zrtLaCzJPCmtaEHevezY2PqJYIQtt1tzlwGRa_w_4Uf6fyQx3DAo9VAZy7Dn8Df0nvqV5-Ka2jgGG9AcQKy2E_X_8g7eEHY2qza4nc9V0-JHas5rvZggwkBbYhaB5GlzkSWQpwes8j_IpgdiiFHpX5zlw',
-  'Content-Type' = 'application/json'
-)
-
-url_stg = 'https://run-4i-stg-4casthub-featurestore-api-ht3a3o3bea-ue.a.run.app/'
-
-# Definindo parâmetros do usuário na API - ambiente de produção
-
-token_prod = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNFZGl0b3IiLCJpczRpIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJiZG1nIl19LCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMzRjNDI0YTE4ZjM3MDA2OGI3MTFkOSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4MTI3NjUyLCJleHAiOjE2OTA3MTk2NTIsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpwcm9qZWN0cyIsImVkaXQ6YWNjZXNzLWdyb3VwcyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDppbmRpY2F0b3JzIiwicmVhZDpteS1ncm91cHMiLCJyZWFkOm9ic2VydmF0aW9ucyIsInJlYWQ6cHJlZGVmaW5lZC1ncm91cHMiLCJyZWFkOnByb2plY3Rpb25zIiwicmVhZDpwcm9qZWN0cyIsInJlYWQ6c2VyaWVzIl19.Zv9TGaJLsKwQSa-h0HUxGRfN75i77QD_fpUpsaZTZYWpVOt2aaV4hZGD67tTij3WPcfRZh6OMHN-d6LHyo5l_a-QrMTz4tQXd_vE7_xOT9aQ0XNxQfGmasCc0l7c_9YXj6V6vswnIifLc-SRRVEIFuHuIarOxUANRdLNpakofn1zjUL-LlTe8AefkZ_SQa26LtAHPoACv3OfN21mwYm_Ni_YStsjm8Tahu3fmfKzMfIR7_AS2El_b3OCTV7HNaP9J05jIj_7umgzoK-SoJaEEVFLv5Iy3dUGSf2Adq0bD_T5dPyA6PsnLihfHAtUFEB37sVmnPXXi4CXxgCCR_w0eA',
-  'Content-Type' = 'application/json'
-)
-
-url_prod = 'https://run-prod-4casthub-featurestore-api-zdfk3g7cpq-ue.a.run.app/'
-
-# Definindo o ambiente ---------------------------------------------------------
-
-ambiente = 'prod' #\ opções: dev, stg, prod
-
-# Configurando a url e token de acordo com o ambiente escolhido
-
-if(ambiente == 'dev') {
-
-  token_to_use = token_dev
-  url_to_use = url_dev
-
-} else if (ambiente == 'stg') {
-
-  token_to_use = token_stg
-  url_to_use = url_stg
-
-} else if (ambiente == 'prod') {
-
-  token_to_use = token_prod
-  url_to_use = url_prod
-
-}
 
 # Metadados --------------------------------------------------------------------
 
-metadados <- readxl::read_excel(paste0(user,
-                                       path,
-                                       'metadados_migração.xlsx'),
-                                skip = 1) %>% janitor::clean_names()
+metadados <- readxl::read_excel(paste0(user, path,
+                                               'novos_indicadores.xlsx'))
 
-# problem_units <- readxl::read_excel("unidade_teste.xlsx") %>% 
-#                  rename(sids = serie) %>% 
-#                  mutate(indicador = str_sub(sids, start = 1, end = 9)) 
-
-metadados_filt <- metadados %>% 
-  #Limpa os indicadores que não serão editados
-  filter(descontinuada == 'FALSE') %>% 
-  filter(is.na(nao_migrar)) %>% 
-  filter(str_detect(grupo_4macro, c('Geral'))) %>% 
-  #filter(in_fs) %>% 
-  filter(indicator_code %in% c("MXBOP0028")) %>% 
-  #filter(crawler != "petrobras") %>% 
-  #filter(crawler %in% c("vli_acucar")) %>% 
-  pluck('indicator_code')
+metadados_filt <- metadados
 
 # Unidade ----------------------------------------------------------------------
 
@@ -110,7 +61,7 @@ metadados_update <- sids_in_fs %>%
                 transfs = str_sub(sids, start = 13, end = 16)) %>%
   base::merge(metadados, by = "indicator_code") %>%
   select(indicator_code,
-         regioes,
+         regioes.x,
          transfs,
          original_pt,
          original_en,
@@ -126,8 +77,9 @@ metadados_update <- sids_in_fs %>%
          un_en = ifelse(is.na(un_en),
                         ifelse(str_sub(cod1_cod2,1,1) %in% c('O', 'S'), original_en, real_en),
                         un_en),
-         sid = paste0(indicator_code, regioes, transfs)) %>%
-  dplyr::ungroup() 
+         sid = paste0(indicator_code, regioes.x, transfs)) %>%
+  dplyr::ungroup() %>% 
+  rename(regioes = regioes.x)
 
 # Loop -------------------------------------------------------------
 # Aplicando update com a função modify_series
