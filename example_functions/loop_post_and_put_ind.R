@@ -10,7 +10,7 @@ graphics.off()
 
 pacman::p_load(tidyverse, httr, stringr, stringi)
 
-# Configurações de ambiente do usuário 
+# Configurações de ambiente do usuário
 
 user = base::getwd() %>%
        stringr::str_extract("^((?:[^/]*/){3})") %>% print()
@@ -36,27 +36,37 @@ url_to_use = urls(environment = "stg")
 novos_indicadores <- readxl::read_excel(paste0(user, path,
                                                'novos_indicadores.xlsx'))
 
-metadados_filt <- novos_indicadores
+metadados_filt <- novos_indicadores %>%
+  mutate(name_abv_pt_fs = iconv(name_abv_pt_fs,
+                                from="UTF-8",to="ASCII//TRANSLIT"),
+         across(where(is.character), ~gsub('\r','', .x)),
+         across(where(is.character), ~gsub('\n','', .x)),
+         across(starts_with('description'), ~str_replace_all(.x, '"',"'"))
+  ) %>%
+  #Renomeia valores NA
+  mutate(ranking = ifelse(is.na(ranking), 1, ranking),
+         indicator_code = ifelse(is.na(indicator_code), "", indicator_code),
+         premium = ifelse(is.na(premium), "default", "premium"),
+         group_access = ifelse(is.na(premium), "Geral", " "),
+         projecao = ifelse(is.na(projecao), ' ', projecao)
+  )
+
+type_to_send = 'POST' #PUT
 
 # Loop indicadores -------------------------------------------------------------
-  
-problem_sids <- tibble(sids = c())
+
+status_out <- tibble(output = character())
 
 for (r in 1:nrow(metadados_filt)) {
 
   print(metadados_filt[r,'indicator_code'])
-  
-  # if(metadados_filt[r, 'in_fs']$in_fs) {
-  #   proj = '4intelligence'
-  # } else {
-  #   proj = ' '
-  # }
+  print(paste("Método de envio é", type_to_send))
 
   # Chamando a função modificação
-  status <- post.indicator(access_type = "default",
-                           access_group = "Geral",
-                           ranking = 1,
+  status <- post.indicator(access_type = metadados_filt[r, 'premium'][[1]],
+                           access_group = metadados_filt[r, 'group_access'][[1]],
                            indicator = metadados_filt[r, 'indicator_code'][[1]],
+                           ranking = metadados_filt[r, 'ranking'][[1]],
                            name_en = metadados_filt[r, 'name_en_fs'][[1]],
                            name_pt = metadados_filt[r, 'name_pt_fs'][[1]],
                            short_en = metadados_filt[r, 'name_abv_en_fs'][[1]],
@@ -67,16 +77,20 @@ for (r in 1:nrow(metadados_filt)) {
                            description_pt = metadados_filt[r, 'description_pt_fs'][[1]],
                            description_full_en = metadados_filt[r, 'link_metodologia_fs_en'][[1]],
                            description_full_pt = metadados_filt[r, 'link_metodologia_fs_pt'][[1]],
-                           country = str_sub(metadados_filt[r, 'indicator_code'],1,2)[[1]],
-                           sector = str_sub(metadados_filt[r, 'indicator_code'],3,5)[[1]],
+                           country = metadados_filt[r, 'pais'][[1]],
+                           sector = metadados_filt[r, 'setor_fs'][[1]],
                            node_en = str_split(metadados_filt[r, 'tree_en_fs'][[1]],
                                                ",")[[1]],
                            node_pt = str_split(metadados_filt[r, 'tree_pt_fs'][[1]],
                                                ",")[[1]],
-                           type_send = 'POST', #ou PUT
-                           token = token_to_use,
-                           proj_owner = ' ',
-                           url = url_to_use)
+                           proj_owner = metadados_filt[r, 'projecao'][[1]],
+                           type_send = type_to_send,
+                           url = url_to_use,
+                           token = token_to_use)
+
+  status_out <- status_out %>%
+    bind_rows(tibble(output = status))
+
   print(status)
 }
 
