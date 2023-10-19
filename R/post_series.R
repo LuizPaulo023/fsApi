@@ -103,7 +103,7 @@ post_series <- function(indicators_metadado, token, url){
                                                                "step_seis" = un_en)),
                   url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
 
-  result = tibble(sid = c(), status = c())
+  result = tibble(out = c())
 
   for (series in unique(send_fs$sid)) {
     sending_sid <- send_fs %>%
@@ -116,16 +116,13 @@ post_series <- function(indicators_metadado, token, url){
 
     cat(httr::content(update_sids, 'text'))
 
-    # if(httr::content(update_sids, 'text') != "{\"message\":\"The resource already exists.\"}") {
-    #   # result = result %>%
-    #   #   add_row(sid = series, status = update_sids$status_code)
-    # }
+    result <- result %>%
+      bind_rows(tibble(out = update_sids$status_code))
   }
-  # if(nrow(result) != 0) {
-  #   return(result)
-  # } else{
-  #   return(NULL)
-  # }
+
+  if(any(!(result$out %in% c(200)))) {
+    stop('problema no envio')
+  }
 
 }
 
