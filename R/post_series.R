@@ -120,10 +120,9 @@ post_series <- function(indicators_metadado, token, url){
       bind_rows(tibble(out = update_sids$status_code))
   }
 
-  if(any(!(result$out %in% c(200)))) {
+  if(any(!(result$out %in% c(200, 400)))) {
     stop('problema no envio')
   }
-
 }
 
 
