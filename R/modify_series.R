@@ -1,7 +1,7 @@
 #' @title Função Update Series
 #' @author Luiz Paulo T.
 
-modify_series <- function(sid, tipo_acesso = 'default' units_en, units_pt, token, url){
+modify_series <- function(sid, tipo_acesso = 'default', units_en, units_pt, token, url){
 
     # Guardando os inputs
     input <- tibble::tibble(sid, units_en, units_pt)
