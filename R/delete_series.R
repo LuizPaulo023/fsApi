@@ -27,11 +27,13 @@ select_sids_to_del <- function(indicator,
   }
   current_series <- tibble()
 
-  for (i in 1:length(current_series_raw[['data']])) {
-    sid = current_series_raw[['data']][[i]][['code']]
+  if(length(current_series_raw[['data']]) != 0) {
+    for (i in 1:length(current_series_raw[['data']])) {
+      sid = current_series_raw[['data']][[i]][['code']]
 
-    current_series <- current_series %>%
-      bind_rows(tibble(sid = sid))
+      current_series <- current_series %>%
+        bind_rows(tibble(sid = sid))
+    }
   }
 
   current_series <- current_series %>%
