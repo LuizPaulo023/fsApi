@@ -11,8 +11,9 @@ setwd(paste0(user,path))
 
 # Definindo parâmetros do usuário ----------------------------------------------------------
 source("urls.R")
+
 token_to_use = c(
-  'Authorization' = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL25hbWUiOiJnLmJlbGxlQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaXNzIjoiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjI5OGY5ZTM4YWU1Y2UwMDY5MDcwNjAyIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzAxNzg1MjQ0LCJleHAiOjE3MDE4NzE2NDQsImF6cCI6IktRbWV2dXdJUW81WXdLRm9vR0NVclVmc0VVaTh5SzM0Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFzazpxdWVzdGlvbnMiLCJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.AdYQTgVqo8rFQQOVngqR20f1WnY5mZ8U1x9yey4ovk8LupwtQ80HPwFMqdRdii20p84OUKlbCIg1uzCwThcyn1N5ZE5e-qNWqt4r7goxkOeB7lnOMdIWSsIdgxE2Hv72zfGPaWgNMGqlX8cp-nmL-dYs1u-FwQ1JvL1ck6f2NzaK5YxSGO80NsQsH8j050Dbh6nhvLk8ObuzCWKUwl3Rq5pdWxOkgeFGWSLLr6bNgaJ3p_e1NyElAwSgOYYh6sYKw1O7Ukkqvh1Vlnp6k9fJcwl_UOjp2ufxJlJ4hcucWCYrG9-2h9lBs5jnn2g4I6QnxtbAqswc6lmBwLk2C7hzIw',
+  'Authorization' = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoibC50YXZhcmVzQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici91c2VyX21ldGFkYXRhIjp7fSwiaHR0cHM6Ly80aW50ZWxsaWdlbmNlLmNvbS5ici9hcHBfbWV0YWRhdGEiOnsicm9sZXMiOlsiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImwudGF2YXJlc0A0aW50ZWxsaWdlbmNlLmNvbS5iciIsImlzcyI6Imh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYzODdhOGY0OTExYmM1NjgyOTQyNWNmYSIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vaG9tb2xvZ2F0aW9uLTRpbnRlbGxpZ2VuY2UudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcwMjM5NzExNywiZXhwIjoxNzAyNDgzNTE3LCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.ZRVEc73JDZhJG2o1DgG62m4P1FItQEcLA7kom_c81y4sM9NgQ3g_239k9BDbtfbVGknDp0dgg_iMBQxFQydJOHMW76YRdWQTPfHm9yXgt4cwOkQ-WCMI9Kdn8mfRaJVfrCtKir0rR4RTuHM46m1HhMbqzJMA3aZlgYYozFyPf_dN-N_LOXzpXNqMN5ZkXvaykpx0DuwDbrRy_Q-5BYM_S-jfoWcyO3rgvEm-xo7KOnZP0FqpPo6OtBSn0l2EsAtTg87vfx0yCTNGHlKlNAtJnGWCPfipi_XAr3c6MQF0-TiMRacn15sjqtK6NmHXx2qkMGvAOIAb_lhkFxbeBswmBA',
   'Content-Type' = 'application/json'
 )
 
@@ -21,28 +22,14 @@ url_to_use = urls(environment = "stg")
 
 # Anbima -----------------------------------------------------------------
 
-metadados <- readxl::read_excel('anbima/novos_indicadores.xlsx') %>%
+metadados_filt <- readxl::read_excel('anbima/novos_indicadores.xlsx') %>%
   janitor::clean_names()
+# %>%
+#   filter(indicator_code == "BRANBCD41")
 
-#Excel do Andre. Trocar pelo excel do BI
-periodicidade_historico <- readxl::read_excel('anbima/periodicidade_novos_fundos_2023-12-04.xlsx') %>%
-  #Calcula o tamanho da idade do fundo
-  mutate(tamanho = data_registro_atual - data_inicio,
-         tamanho = ifelse(is.na(tamanho),
-                          as.POSIXct(Sys.Date(), format = '%y-%m-%d') - data_inicio,
-                          tamanho),
-         tamanho = as.numeric(tamanho)
-         ) %>%
-  #Não SUBIR fundos menos de 33 dias de periodidade
-  #não criar o indicador
-  select(-c(data_registro_atual, data_inicio, codigo_fundo)) %>%
-  rename(frequencia = periodicidade) %>%
-  mutate(frequencia = case_when(frequencia == 'DIARIA' ~ 'D',
-                                frequencia == 'MENSAL' ~ 'M',
-                                frequencia == 'ANUAL' ~ 'Y'))
 
-metadados_filt <- metadados %>%
-  left_join(periodicidade_historico)
+# metadados_filt <- metadados %>%
+#   left_join(periodicidade_historico)
 
 sids_anbima = list(
   diario = c(
@@ -186,7 +173,7 @@ sids_anbima = list(
 problems = tibble(sid = c(), status = c())
 sids_to_del <- tibble(ind = c(), sids = c())
 
-for (i in unique(metadados_filt$indicator_code)[6:928]) {
+for (i in unique(metadados_filt$indicator_code)) {
   #i = unique(metadados_filt$indicator_code)[1]
 
   df_filt <- metadados_filt %>%
