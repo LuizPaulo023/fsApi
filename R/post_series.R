@@ -103,7 +103,7 @@ post_series <- function(indicators_metadado, token, url){
                                                                "step_seis" = un_en)),
                   url = paste0(url, 'api/v1/indicators/', indicador, "/series"))
 
-  result = tibble(out = c())
+  result = tibble(status = c(), sid = c())
 
   for (series in unique(send_fs$sid)) {
     sending_sid <- send_fs %>%
@@ -117,12 +117,10 @@ post_series <- function(indicators_metadado, token, url){
     cat(httr::content(update_sids, 'text'))
 
     result <- result %>%
-      bind_rows(tibble(out = update_sids$status_code))
+      bind_rows(tibble(status = update_sids$status_code,
+                       sid = series))
   }
-
-  if(any(!(result$out %in% c(200, 400)))) {
-    stop('problema no envio')
-  }
+  return(result)
 }
 
 

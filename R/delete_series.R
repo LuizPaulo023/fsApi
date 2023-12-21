@@ -49,7 +49,7 @@ delete_series <- function(indicator,
                           token,
                           url){
 
-  result = tibble(out = c())
+  result = tibble(out = c(), sid = c())
 
   for (sid in del_series) {
     delete_series <- httr::VERB(
@@ -60,16 +60,13 @@ delete_series <- function(indicator,
                    sid),
       add_headers(token)
     )
+    cat(httr::content(delete_series, 'text'))
 
     result <- result %>%
-      bind_rows(tibble(out = delete_series$status_code))
+      bind_rows(tibble(out = delete_series$status_code,
+                       sid = sid))
 
-    print(sid)
-    cat(httr::content(delete_series, 'text'))
-    Sys.sleep(0.05)
-  }
+    return(result)
 
-  if(any(!(result$out %in% c(200, 404)))) {
-    stop('problema no envio')
   }
 }

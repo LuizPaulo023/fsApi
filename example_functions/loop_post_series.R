@@ -17,13 +17,13 @@ setwd(paste0(user,path))
 source("urls.R")
 
 token_to_use = c(
-  'Authorization' = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL25hbWUiOiJnLmJlbGxlQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaXNzIjoiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjI5OGY5ZTM4YWU1Y2UwMDY5MDcwNjAyIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjk5NjIyNTM1LCJleHAiOjE2OTk3MDg5MzUsImF6cCI6IktRbWV2dXdJUW81WXdLRm9vR0NVclVmc0VVaTh5SzM0Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFzazpxdWVzdGlvbnMiLCJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.Q757QuKGG5ghTqv49mx-YueboROXGqbC236iCL8UO9C6j3ns_9c-v2NcDyZMosOQCYDdq-YmoTseZLtIF7SbBQGk83F8CTXbWFzlZ_79l7k_X2HNA0nsPjlikMgRzN0FtqQVF53lkbF2z3BEDABdPcpC_BjgrB2jwmltmdAcoPNPqWe68fREAyS90zsXCwrD2PlI5HdnvdpE-089ZNk_kn6Ybfpg4atss6bTDEuIjM0lLnSmK8AKzxvJzdeP4mW6zEiPqCnxqkpgLaqzUc_wK7yQ7AqXXKZzpN4VZBcx8Z8JTdg97wnFoncm_UMho1tPenA96IuVn-LGqq4dxQZ-uQ',
+  'Authorization' = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImcuYmVsbGVANGludGVsbGlnZW5jZS5jb20uYnIiLCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MDBkNTdlODU1Yzg0YzE5MTRhNzc0ZCIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzAzMTYxMTcxLCJleHAiOjE3MDU3NTMxNzEsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFzazpxdWVzdGlvbnMiLCJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.XxXdg0n4UGrrdKo0yhXDI9LMNRrCps9Xp8nKpUjjwtYi7b03r3d1jAayWDXGHNdziv-mnsu3qffB657fvZTGnQZo-EAYaOfl8qbXEIdB-hbIkz6tT8bJVpY_xyPZXMamCT_ows9eQMNSCjJL_0IVsx9HSV6DOGASZsV_q2IBuLKYOOiODw0057SFEr4ETkFjIeZxFgx_fNgT8bYwSB4JPAhPfcVNw1FFdhjJ0yta3u2K0ReOY90PM6dAsPh4dZklWYRkDDKzS_KMXzWYdElNLsWEBxbMWVbzqFMfdw4eRPczhGobpvL0lOCcSjL18vvAxTHaMORfq555TiZRcP8bJw',
   'Content-Type' = 'application/json'
 )
 
 # Escolha o ambiente prod ou stg #\ opções: stg, prod
 
-url_to_use = urls(environment = "stg")
+url_to_use = urls(environment = "prod")
 
 # Novas Aberturas ---------------------------------------------------------------------------------------
 
@@ -51,76 +51,19 @@ metadados_filt <- novos_indicadores %>%
 
 # Criar SIDs inexistentes - Buracos ---------------------------------------
 
-ind_stg <- readxl::read_excel(paste0(user, path,
-                                          'ind_stg.xlsx')) %>%
-  pluck('indicator_code')
+ind_buraco <- readxl::read_excel(paste0(user, path,
+                                          'indicador_grupo_transfs.xlsx'))
 
-metadados_filt <- readxl::read_excel(paste0(user, path,
-                                            'indicador_grupo_transfs.xlsx')) %>%
-  filter(indicator_code %in% ind_stg)
+grupos_disp <- ind_buraco[['grupo_transformação']] %>%
+  unique()
 
-# Anbima -----------------------------------------------------------------
-#
-# metadados_filt <- readxl::read_excel('anbima/indicadores_mensais_anuais.xlsx') %>%
-#   janitor::clean_names() %>%
-#   filter(frequencia == "ANUAL") %>%
-#   rename(indicator_code = indicador) %>%
-#   bind_rows(tibble(indicator_code = 'BRANBH735')) %>%
-#   tail(1)
-#
-# sids_anbima = tibble(
-#   sid = c('CTOOODL', 'CTOOSML', 'CTOOSMI', 'CTOOSMC', 'CTOOSQL', 'CTOOSQI', 'CTOOSQC', 'CTOOSYL',
-#           'CTOOAML', 'CTOOAQL', 'CTOOAYL',
-#           'RSGOODL', 'RSGOSML', 'RSGOSMI', 'RSGOSMC', 'RSGOSQL', 'RSGOSQI', 'RSGOSQC', 'RSGOSYL',
-#           'RSGOAML', 'RSGOAQL', 'RSGOAYL',
-#           'CTLOODL', 'CTLOSML', 'CTLOSMI', 'CTLOSMC', 'CTLOSQL', 'CTLOSQI', 'CTLOSQC', 'CTLOSYL',
-#           'CTLOAML', 'CTLOAQL', 'CTLOAYL',
-#           'PTLOODL', 'PTLOODY', 'PTLOODM', 'PTLOODV', 'PTLOODO', 'PTLOODU',
-#           'PTLOEMV', 'PTLOEMU', 'PTLOAMV', 'PTLOAMU', 'PTLOEQV', 'PTLOEQU', 'PTLOAQV', 'PTLOAQU',
-#           'PTLOEML', 'PTLOEMM', 'PTLOEMY', 'PTLOEQL', 'PTLOEQM', 'PTLOEQY', 'PTLOEYL', 'PTLOEYY',
-#           'PTLOAML', 'PTLOAMM', 'PTLOAMY', 'PTLOAQL', 'PTLOAQM', 'PTLOAQY', 'PTLOAYL', 'PTLOAYY',
-#           'NMCOODL', 'NMCOEML', 'NMCOEMM', 'NMCOEMY', 'NMCOEQL', 'NMCOEQM', 'NMCOEQY', 'NMCOEYL', 'NMCOEYY',
-#           'NMCOAML', 'NMCOAMM', 'NMCOAMY', 'NMCOAQL', 'NMCOAQM', 'NMCOAQY', 'NMCOAYL', 'NMCOAYY',
-#           'VRCOODL', 'VRCOODY', 'VRCOODM', 'VRCOODV', 'VRCOODO', 'VRCOODU',
-#           'VRCOEMV', 'VRCOEMU', 'VRCOAMV', 'VRCOAMU', 'VRCOEQV', 'VRCOEQU', 'VRCOAQV', 'VRCOAQU',
-#           'VRCOEML', 'VRCOEMM', 'VRCOEMY', 'VRCOEQL', 'VRCOEQM', 'VRCOEQY', 'VRCOEYL', 'VRCOEYY',
-#           'VRCOAML', 'VRCOAMM', 'VRCOAMY', 'VRCOAQL', 'VRCOAQM', 'VRCOAQY', 'VRCOAYL', 'VRCOAYY'
-#   ),
-#   # sid = c('CTOOOML', 'CTOOOMC',
-#   #         'CTOOSQL', 'CTOOSQC', 'CTOOSYL',
-#   #         'CTOOAQL', 'CTOOAYL',
-#   #         'RSGOOML', 'RSGOOMC',
-#   #         'RSGOSQL', 'RSGOSQC', 'RSGOSYL',
-#   #         'RSGOAQL', 'RSGOAYL',
-#   #         'CTLOOML', 'CTLOOMC',
-#   #         'CTLOSQL', 'CTLOSQC', 'CTLOSYL',
-#   #         'CTLOAQL', 'CTLOAYL',
-#   #         'PTLOOML', 'PTLOOMM', 'PTLOOMY',
-#   #         'PTLOEQL', 'PTLOEQM', 'PTLOEQY', 'PTLOEYL', 'PTLOEYY',
-#   #         'PTLOAQL', 'PTLOAQM', 'PTLOAQY', 'PTLOAYL', 'PTLOAYY',
-#   #         'NMCOOML', 'NMCOOMM', 'NMCOOMY',
-#   #         'NMCOEQL', 'NMCOEQM', 'NMCOEQY', 'NMCOEYL', 'NMCOEYY',
-#   #         'NMCOAQL', 'NMCOAQM', 'NMCOAQY', 'NMCOAYL', 'NMCOAYY',
-#   #         'VRCOOML', 'VRCOOMM', 'VRCOOMY',
-#   #         'VRCOEQL', 'VRCOEQM', 'VRCOEQY', 'VRCOEYL', 'VRCOEYY',
-#   #         'VRCOAQL', 'VRCOAQM', 'VRCOAQY', 'VRCOAYL', 'VRCOAYY'
-#   # ),
-#   # sid = c('CTOOOYL', 'RSGOOYL', 'CTLOOYL', 'PTLOOYL', 'PTLOOYY', 'NMCOOYL', 'NMCOOYY', 'VRCOOYL', 'VRCOOYY'),
-#   un_pt = case_when(
-#     str_sub(sid, 1, 3) == 'NMC' & str_sub(sid, 7,7) == 'L' ~ 'Pessoas',
-#     str_sub(sid, 7,7) %in% c('L', 'C', 'I') ~ 'R$',
-#     str_sub(sid, 7,7) != 'L' ~ '%'),
-#   un_en = case_when(
-#     str_sub(sid, 1, 3) == 'NMC' & str_sub(sid, 7,7) == 'L' ~ 'People',
-#     str_sub(sid, 7,7) %in% c('L', 'C', 'I') ~ 'R$',
-#     str_sub(sid, 7,7) != 'L' ~ '%')
-# )
-
+metadados_filt <- ind_buraco %>%
+  filter(`grupo_transformação` %in% grupos_disp[[1]])
 
 # Loop de envio -----------------------------------------------------------
 
-problems = tibble(sid = c(), status = c())
-sids_to_del <- tibble(ind = c(), sids = c())
+sids_created = tibble(sid = c(), status = c())
+sids_removed = tibble(sid = c(), status = c())
 
 for (i in unique(metadados_filt$indicator_code)) {
 
@@ -128,12 +71,12 @@ for (i in unique(metadados_filt$indicator_code)) {
     filter(indicator_code == i) %>%
     rename(grupo = 'grupo_transformação')
 
-
   #Gera todos os SIDs a partir do Subgrupo
   sids_by_group <- gen_sids_by_group(indicators_metadado = df_filt,
                                      depara_grupos = grupo_transf,
                                      depara_unidade = depara_unidade)
 
+  #Coleta as séries já existentes na FS
   current_series_raw <- httr::VERB("GET",
                                    url = paste0(url_to_use, "api/v1/indicators/", i, "/series?limit=4000"),
                                    add_headers(token_to_use)) %>% content("parsed")
@@ -141,10 +84,12 @@ for (i in unique(metadados_filt$indicator_code)) {
   current_series <- tibble()
 
   if(length(current_series_raw[['data']]) == 0){
-    F
+    print(paste('Atualmente não há nenhuma abertura para o indicador', i))
   } else {
-    for (i in 1:length(current_series_raw[['data']])) {
-      sid = current_series_raw[['data']][[i]][['code']]
+    print(paste('Atualmente há', length(current_series_raw[['data']]), 'aberturas para o indicador', i))
+
+    for (k in 1:length(current_series_raw[['data']])) {
+      sid = current_series_raw[['data']][[k]][['code']]
 
       current_series <- current_series %>%
         bind_rows(tibble(sid = sid))
@@ -154,43 +99,56 @@ for (i in unique(metadados_filt$indicator_code)) {
       pluck('sid')
 
     #Filtros específicos em cima do grupo de transf. gerado
+    #Mantem a TP + RG apenas para a combinação que já existe na FS
     tp_current <- current_series %>%
       str_sub(10,14) %>%
       unique()
 
     sids_to_send_metadata <- sids_by_group %>%
       filter(!(sid %in% current_series)) %>%
+      #filter(str_sub(sid, 13, 13) %in% c('R', 'W'))
       filter(str_sub(sid, 10,14) %in% tp_current)
   }
 
-  # sids_to_send_metadata <- sids_anbima %>%
-  #   mutate(sid = paste0(i, sid))
-
-  print(paste0("Enviando as aberturas para o indicador: ", i))
-
   if(sids_to_send_metadata %>% nrow() != 0){
+
+   print(paste0("Enviando as aberturas para o indicador: ", i))
 
    post_sid =  post_series(indicators_metadado = sids_to_send_metadata,
                            token = token_to_use,
                            url = url_to_use)
+
+   if(any(!(post_sid$status %in% c(200, 400)))) {
+     stop('Problema na criação de série para o indicador', i)
+   } else {
+     sids_created <- sids_created %>%
+       bind_rows(post_sid)
+
+     print(paste('As séries para o indicador', i, 'foram criadas'))
+   }
   } else {
-    F
+    print(paste("Não há aberturas para serem criadas para o indicador", i))
   }
 
-  # del_sids <- select_sids_to_del(indicator = i,
-  #                                new_sids = sids_to_send_metadata,
-  #                                token = token_to_use,
-  #                                url = url_to_use)
-  #
-  # if(!identical(del_sids, character(0))) {
-  #   print(paste0("Deletando aberturas indesejadas do indicador: ", i))
-  #   delete_series(indicator = i,
-  #                 del_series = del_sids,
-  #                 token = token_to_use,
-  #                 url = url_to_use)
-  # } else {
-  #   print(paste0("Sem aberturas para excluir para o indicador ", i))
-  # }
-}
+  del_sids <- select_sids_to_del(indicator = i,
+                                 new_sids = sids_by_group,
+                                 token = token_to_use,
+                                 url = url_to_use)
 
+  if(!identical(del_sids, character(0))) {
+    print(paste("Deletando aberturas indesejadas do indicador: ", i))
+    delete_sid <- delete_series(indicator = i,
+                                del_series = del_sids,
+                                token = token_to_use,
+                                url = url_to_use)
+
+    if(any(!(delete_sid$out %in% c(200, 404)))) {
+      stop('Problema na deleção de série para o indicador', i)
+    } else {
+      print(paste('As séries do indicador', i, 'foram deletadas com sucesso!'))
+    }
+  } else {
+    print(paste("Sem aberturas do indicador", i, "para excluir!"))
+  }
+}
 
