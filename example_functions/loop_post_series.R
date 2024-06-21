@@ -17,13 +17,13 @@ setwd(paste0(user,path))
 source("urls.R")
 
 token_to_use = c(
-  'Authorization' = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgyX3VOQkNKVENnU0VNX3Z2TjR2LSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRWRpdG9yIiwiaXNGYWFTIiwiaXNGZWF0dXJlU3RvcmUiLCJpc0ZzQWRtaW4iLCJpc0JldGEiXSwic2hpbnlwcm94eV9yb2xlcyI6WyJmYWFzLWludGVybm8iLCJncGEiLCJ2aWF2YXJlam8iLCJhbmJpbWEiXX0sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvbmFtZSI6ImcuYmVsbGVANGludGVsbGlnZW5jZS5jb20uYnIiLCJpc3MiOiJodHRwczovLzRpbnRlbGxpZ2VuY2UuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0MDBkNTdlODU1Yzg0YzE5MTRhNzc0ZCIsImF1ZCI6WyI0Y2FzdGh1YiIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzAzMTYxMTcxLCJleHAiOjE3MDU3NTMxNzEsImF6cCI6Im1TS1pxSDVLcTFXb2N4SmNsbklVUmJWSUtVV1Jqb0p6Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFzazpxdWVzdGlvbnMiLCJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0OmluZGljYXRvcnMiLCJlZGl0Om15LWdyb3VwcyIsImVkaXQ6b2JzZXJ2YXRpb25zIiwiZWRpdDpwcmVkZWZpbmVkLWdyb3VwcyIsImVkaXQ6cHJvamVjdGlvbnMiLCJlZGl0OnNlcmllcyIsInJlYWQ6YWNjZXNzLWdyb3VwcyIsInJlYWQ6ZG9tYWlucyIsInJlYWQ6aW5kaWNhdG9ycyIsInJlYWQ6bXktZ3JvdXBzIiwicmVhZDpvYnNlcnZhdGlvbnMiLCJyZWFkOnByZWRlZmluZWQtZ3JvdXBzIiwicmVhZDpwcm9qZWN0aW9ucyIsInJlYWQ6cHJvamVjdHMiLCJyZWFkOnNlcmllcyJdfQ.XxXdg0n4UGrrdKo0yhXDI9LMNRrCps9Xp8nKpUjjwtYi7b03r3d1jAayWDXGHNdziv-mnsu3qffB657fvZTGnQZo-EAYaOfl8qbXEIdB-hbIkz6tT8bJVpY_xyPZXMamCT_ows9eQMNSCjJL_0IVsx9HSV6DOGASZsV_q2IBuLKYOOiODw0057SFEr4ETkFjIeZxFgx_fNgT8bYwSB4JPAhPfcVNw1FFdhjJ0yta3u2K0ReOY90PM6dAsPh4dZklWYRkDDKzS_KMXzWYdElNLsWEBxbMWVbzqFMfdw4eRPczhGobpvL0lOCcSjL18vvAxTHaMORfq555TiZRcP8bJw',
+  'Authorization' = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImpsUlBUc2FmM0MtZ3pITkdieTRYQSJ9.eyJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL2VtYWlsIjoiZy5iZWxsZUA0aW50ZWxsaWdlbmNlLmNvbS5iciIsImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvdXNlcl9tZXRhZGF0YSI6e30sImh0dHBzOi8vNGludGVsbGlnZW5jZS5jb20uYnIvYXBwX21ldGFkYXRhIjp7InJvbGVzIjpbImlzRmFhUyIsImlzRmVhdHVyZVN0b3JlIiwiaXNGc0FkbWluIl19LCJodHRwczovLzRpbnRlbGxpZ2VuY2UuY29tLmJyL25hbWUiOiJnLmJlbGxlQDRpbnRlbGxpZ2VuY2UuY29tLmJyIiwiaXNzIjoiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjI5OGY5ZTM4YWU1Y2UwMDY5MDcwNjAyIiwiYXVkIjpbIjRjYXN0aHViIiwiaHR0cHM6Ly9ob21vbG9nYXRpb24tNGludGVsbGlnZW5jZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzE4NzI1NjUyLCJleHAiOjE3MTg4MTIwNTIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiJLUW1ldnV3SVFvNVl3S0Zvb0dDVXJVZnNFVWk4eUszNCIsInBlcm1pc3Npb25zIjpbImFzazpxdWVzdGlvbnMiLCJjcmVhdGU6cHJvamVjdHMiLCJlZGl0OmFjY2Vzcy1ncm91cHMiLCJlZGl0Omdyb3VwLWFsZXJ0cyIsImVkaXQ6aW5kaWNhdG9ycyIsImVkaXQ6bXktZ3JvdXBzIiwiZWRpdDpvYnNlcnZhdGlvbnMiLCJlZGl0OnByZWRlZmluZWQtZ3JvdXBzIiwiZWRpdDpwcm9qZWN0aW9ucyIsImVkaXQ6c2VyaWVzIiwicmVhZDphY2Nlc3MtZ3JvdXBzIiwicmVhZDpkb21haW5zIiwicmVhZDpncm91cC1hbGVydHMiLCJyZWFkOmluZGljYXRvcnMiLCJyZWFkOm15LWdyb3VwcyIsInJlYWQ6b2JzZXJ2YXRpb25zIiwicmVhZDpwcmVkZWZpbmVkLWdyb3VwcyIsInJlYWQ6cHJvamVjdGlvbnMiLCJyZWFkOnByb2plY3RzIiwicmVhZDpzZXJpZXMiXX0.JU4QxLJXzcwQxVgWJNzNjv9RFOEdxe9dvWWMqeKNAupYBf7PiCTHJzAs4Rm3UQ13k_XARluVWeeM6-enPwrywb7VcUjn4bW_Sxqfn_c1hCBZx9Gbb16Tv-WWp3MXzcVierm8IAKC-aTy_c6SjI0FjJBfBwLX0NTtpPK1URyYYqvp0M4HuX28uhokYjzHg2M9cZPP9MuMtiNd0TijpucDWK9_EehZ6KxIl4C585nTpGkjGQy2FiWHzGfXzPC_kaawzGZu454ZJhUjrbZGa1mzLjAZyaYmYmIbCrEQshKBsUFTeE8WCcBKEcU0cyMZ8L_wBsUtxhaqFxZ9euLKfZYPoA',
   'Content-Type' = 'application/json'
 )
 
 # Escolha o ambiente prod ou stg #\ opções: stg, prod
 
-url_to_use = urls(environment = "prod")
+url_to_use = urls(environment = "stg_apigee")
 
 # Novas Aberturas ---------------------------------------------------------------------------------------
 
@@ -49,16 +49,20 @@ metadados_filt <- novos_indicadores %>%
   mutate(regioes = str_replace_all(regioes, " ", ", "))
 
 
-# Criar SIDs inexistentes - Buracos ---------------------------------------
+# Criar SIDs inexistentes - TP ---------------------------------------
 
-ind_buraco <- readxl::read_excel(paste0(user, path,
+indicadores <- readxl::read_excel(paste0(user, path,
                                           'indicador_grupo_transfs.xlsx'))
 
-grupos_disp <- ind_buraco[['grupo_transformação']] %>%
-  unique()
+migracao_tp <- readxl::read_excel(paste0(user, path,
+                                         'Migração TP.xlsx')) %>%
+  janitor::clean_names() %>%
+  filter(crawler == 'sgs_credito')
 
-metadados_filt <- ind_buraco %>%
-  filter(`grupo_transformação` %in% grupos_disp[[1]])
+metadados_filt <- indicadores %>%
+  filter(indicator_code %in% migracao_tp$indicador)
+
+metadados_filt$grupo_transformação %>% unique()
 
 # Loop de envio -----------------------------------------------------------
 
@@ -74,7 +78,8 @@ for (i in unique(metadados_filt$indicator_code)) {
   #Gera todos os SIDs a partir do Subgrupo
   sids_by_group <- gen_sids_by_group(indicators_metadado = df_filt,
                                      depara_grupos = grupo_transf,
-                                     depara_unidade = depara_unidade)
+                                     depara_unidade = depara_unidade) %>%
+    filter(!(!(str_sub(sid, 10, 12) == "000") & str_sub(sid, 16, 16) == "P"))
 
   #Coleta as séries já existentes na FS
   current_series_raw <- httr::VERB("GET",
@@ -105,9 +110,9 @@ for (i in unique(metadados_filt$indicator_code)) {
       unique()
 
     sids_to_send_metadata <- sids_by_group %>%
-      filter(!(sid %in% current_series)) %>%
+      filter(!(sid %in% current_series))
       #filter(str_sub(sid, 13, 13) %in% c('R', 'W'))
-      filter(str_sub(sid, 10,14) %in% tp_current)
+      #filter(str_sub(sid, 10,14) %in% tp_current)
   }
 
   if(sids_to_send_metadata %>% nrow() != 0){
